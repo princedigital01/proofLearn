@@ -23,6 +23,11 @@ export const metadata: Metadata = {
   title: 'ProofLearn | Decentralized Learning with Verifiable Credentials',
   description:
     'ProofLearn is a blockchain-powered e-learning platform where students own their certificates and educators are rewarded fairly. Learn, earn, and prove your skills globally.',
+  icons: {
+    icon: '/logo.svg',
+    shortcut: '/logo.svg',
+    apple: '/logo.svg',
+  },
   keywords: [
     'ProofLearn',
     'decentralized education',
@@ -72,7 +77,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
+
   return (
     <html lang="en">
       <body
@@ -83,10 +88,10 @@ export default function RootLayout({
             <Toaster />
             <Sonner />
             <Suspense fallback={<Loading />}>
-            {children}
+              {children}
             </Suspense>
           </TooltipProvider>
-          </QueryProvider>
+        </QueryProvider>
       </body>
     </html>
   );

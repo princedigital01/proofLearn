@@ -1,10 +1,13 @@
-import React from 'react'
+"ues client"
+import { useState } from "react";
 
 const page = () => {
-    throw new Error("This is a test error from page.tsx");
+    const [shouldCrash, setShouldCrash] = useState(false);
+  if (shouldCrash) throw new Error("Manual crash for testing");
+
   return (
-    <div>hi erro page</div>
-  )
+    <button onClick={() => setShouldCrash(true)}>Crash the app 🔥</button>
+  );
 }
 
 export default page

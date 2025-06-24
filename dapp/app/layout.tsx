@@ -46,11 +46,11 @@ export const metadata: Metadata = {
     title: 'ProofLearn | Learn. Earn. Prove.',
     description:
       'Join the future of education with blockchain-powered credentials. Secure. Verifiable. Yours forever.',
-    url: 'https://prooflearn.com',
+    url: 'https://proof-learn-e.vercel.app/',
     siteName: 'ProofLearn',
     images: [
       {
-        url: 'https://prooflearn.com/og-image.png',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'ProofLearn platform preview',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     description:
       'A smarter way to learn — own your credentials, stake for access, and join the Web3 education movement.',
     creator: '@prooflearn',
-    images: ['https://prooflearn.com/og-image.png'],
+    images: ['/og-image.png'],
   },
   themeColor: '#1d4ed8',
   viewport: 'width=device-width, initial-scale=1.0',

@@ -1,0 +1,63 @@
+{
+  "preamble": {
+    "title": "web/contract",
+    "description": "Aiken contracts for project 'web/contract'",
+    "version": "0.0.0",
+    "plutusVersion": "v3",
+    "compiler": {
+      "name": "Aiken",
+      "version": "v1.1.17+c3a7fba"
+    },
+    "license": "Apache-2.0"
+  },
+  "validators": [
+    {
+      "title": "always.always_succeeds.mint",
+      "redeemer": {
+        "title": "datum",
+        "schema": {
+          "$ref": "#/definitions/Option$Data"
+        }
+      },
+      "compiledCode": "589601010029800aba2aba1aab9faab9eaab9dab9a48888896600264653001300700198039804000cc01c0092225980099b8748000c01cdd500144cc896600266e1d2000001899192cc004c03c00a2d164034601a00260146ea80162b30013370e9001000c56600260146ea80162d16402d1640208040dd7180518041baa0023007375400716401830070013003375400f149a26cac80081",
+      "hash": "9a45f05ad2a1b78c5253c9fcc4511c48e3f89b16a81a6e5fe29f8022"
+    },
+    {
+      "title": "always.always_succeeds.else",
+      "redeemer": {
+        "schema": {}
+      },
+      "compiledCode": "589601010029800aba2aba1aab9faab9eaab9dab9a48888896600264653001300700198039804000cc01c0092225980099b8748000c01cdd500144cc896600266e1d2000001899192cc004c03c00a2d164034601a00260146ea80162b30013370e9001000c56600260146ea80162d16402d1640208040dd7180518041baa0023007375400716401830070013003375400f149a26cac80081",
+      "hash": "9a45f05ad2a1b78c5253c9fcc4511c48e3f89b16a81a6e5fe29f8022"
+    }
+  ],
+  "definitions": {
+    "Data": {
+      "title": "Data",
+      "description": "Any Plutus data."
+    },
+    "Option$Data": {
+      "title": "Option",
+      "anyOf": [
+        {
+          "title": "Some",
+          "description": "An optional value.",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "$ref": "#/definitions/Data"
+            }
+          ]
+        },
+        {
+          "title": "None",
+          "description": "Nothing.",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": []
+        }
+      ]
+    }
+  }
+}

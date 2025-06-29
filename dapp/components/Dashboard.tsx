@@ -66,21 +66,18 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="max-w-full min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-2">
-                <BookOpen className="h-8 w-8 text-blue-600" />
-                <span className="text-2xl font-bold"><Link href= "/">Learn on Cardano</Link></span>
+                <Link href= '/'><BookOpen className="h-8 w-8 text-blue-600" /></Link>
+                <span className="hidden md:text-2xl font-bold"><Link href= "/">Learn on Cardano</Link></span>
               </div>
               <nav className="hidden md:flex space-x-6 text-red">
-                <Button variant="ghost">Dashboard</Button>
-                <Button variant="ghost">My Courses</Button>
-                <Button variant="ghost">Certificates</Button>
-                <Button variant="ghost">Governance</Button>
+                
               </nav>
             </div>
             <div className="flex items-center space-x-4">
@@ -112,7 +109,7 @@ const Dashboard = () => {
                   </Badge>
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="flex flex-col md:grid grid-cols-2 gap-6">
                   {enrolledCourses.map((course) => (
                     <Card key={course.id} className="hover:shadow-lg transition-shadow">
                       <CardHeader>

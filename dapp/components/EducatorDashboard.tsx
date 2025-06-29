@@ -91,7 +91,7 @@ const EducatorDashboard = () => {
 
       <div className="container mx-auto px-4 py-8">
         {/* Stats Overview */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="flex flex-col md:grid grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Students</CardTitle>
@@ -163,7 +163,7 @@ const EducatorDashboard = () => {
               </Button>
             </div>
 
-            <div className="grid gap-6">
+            <div className="flex flex-col md:grid grid-cols-2 gap-6">
               {courses.map((course) => (
                 <Card key={course.id} className="p-6">
                   <div className="flex items-start justify-between">

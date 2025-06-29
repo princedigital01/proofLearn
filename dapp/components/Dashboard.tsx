@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from "react";
+import { useState } from "react"; 
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -73,7 +74,7 @@ const Dashboard = () => {
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-2">
                 <BookOpen className="h-8 w-8 text-blue-600" />
-                <span className="text-2xl font-bold">Learn on Cardano</span>
+                <span className="text-2xl font-bold"><Link href= "/">Learn on Cardano</Link></span>
               </div>
               <nav className="hidden md:flex space-x-6 text-red">
                 <Button variant="ghost">Dashboard</Button>

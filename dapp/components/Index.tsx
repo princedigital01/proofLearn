@@ -1,5 +1,6 @@
 'use client';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"; 
+
 import { BookOpen, Shield, Award, Users, Coins, Vote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +14,7 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <BookOpen className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-900">Learn on Cardano</span>
+            <span className="text-2xl font-bold text-gray-900"><Link href= "/">Learn on Cardano</Link></span>
           </div>
           <nav className="hidden md:flex space-x-6">
             <Link href="/courses" className="text-gray-600 hover:text-blue-600 transition-colors">Courses</Link>

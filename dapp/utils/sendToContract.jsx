@@ -3,7 +3,6 @@
 import {
   BrowserWallet,
   Transaction,
-  Data,
   resolvePlutusScriptAddress,
 } from '@meshsdk/core';
 

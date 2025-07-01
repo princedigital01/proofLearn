@@ -11,7 +11,7 @@ const CreateAccountPage = () => {
     const router = useRouter();
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push('/dashboard')
     // Replace with your sign-up API logic

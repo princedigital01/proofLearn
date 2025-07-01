@@ -23,7 +23,7 @@ const Index = () => {
           </nav>
           <div className="flex space-x-3">
             <Button variant="outline" asChild>
-              <Link href="/login">Connect Wallet</Link>
+              <Link href="/login">Login</Link>
             </Button>
             <Button asChild>
               <Link href="/dashboard">Get Started</Link>

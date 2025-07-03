@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react"; 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -19,82 +19,44 @@ import Header from "./Header";
 import Loading from "@/app/loading";
 
 const Dashboard = () => {
-
-  const { data: session, status } = useSession();
-  
-
+  const router = useRouter();
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push('/login');
+    },
+  });
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  // Mock data - in real app this would come from API/blockchain
   const enrolledCourses = [
-    {
-      id: 1,
-      title: "Cardano Smart Contracts with Aiken",
-      instructor: "Alice Thompson",
-      progress: 75,
-      totalLessons: 12,
-      completedLessons: 9,
-      image: "/placeholder.svg?height=200&width=300"
-    },
-    {
-      id: 2,
-      title: "DeFi Fundamentals on Cardano",
-      instructor: "Bob Martinez",
-      progress: 40,
-      totalLessons: 15,
-      completedLessons: 6,
-      image: "/placeholder.svg?height=200&width=300"
-    }
+    { id: 1, title: "Cardano Smart Contracts with Aiken", instructor: "Alice Thompson", progress: 75, totalLessons: 12, completedLessons: 9, image: "/placeholder.svg?height=200&width=300" },
+    { id: 2, title: "DeFi Fundamentals on Cardano", instructor: "Bob Martinez", progress: 40, totalLessons: 15, completedLessons: 6, image: "/placeholder.svg?height=200&width=300" }
   ];
 
   const availableCourses = [
-    {
-      id: 3,
-      title: "Building DApps with Mesh.js",
-      instructor: "Carol Davis",
-      price: 500,
-      rating: 4.8,
-      students: 234,
-      duration: "8 hours",
-      level: "Intermediate",
-      image: "/placeholder.svg?height=200&width=300"
-    },
-    {
-      id: 4,
-      title: "Cardano Native Tokens",
-      instructor: "David Wilson",
-      price: 300,
-      rating: 4.9,
-      students: 156,
-      duration: "6 hours",
-      level: "Beginner",
-      image: "/placeholder.svg?height=200&width=300"
-    }
+    { id: 3, title: "Building DApps with Mesh.js", instructor: "Carol Davis", price: 500, rating: 4.8, students: 234, duration: "8 hours", level: "Intermediate", image: "/placeholder.svg?height=200&width=300" },
+    { id: 4, title: "Cardano Native Tokens", instructor: "David Wilson", price: 300, rating: 4.9, students: 156, duration: "6 hours", level: "Beginner", image: "/placeholder.svg?height=200&width=300" }
   ];
 
-  if(status=="loading"){
-    return (<Loading/>)
-  }else{
-  if (!session) {
-    const router = useRouter();
-    router.push('/login')
-  }else{
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  const firstName = session.user?.name?.trim().split(/\s+/)[0] || 'User';
+
   return (
     <div className="max-w-full min-h-screen bg-gray-50">
-      {/* Header */}
-          <Header title={`welcome ${session?.user?.name.trim().split(/\s+/)[0].toUpperCase()}`}>
-            <div className="mr-3 flex flex-col lg:flex-row items-center gap-2 ">
-              <TokenBalance />
-              <WalletConnection  />
-            </div>
-          </Header>
-          
+      <Header title={`Welcome ${firstName.toUpperCase()}`}>
+        <div className="mr-3 flex flex-col lg:flex-row items-center gap-2 ">
+          <TokenBalance />
+          <WalletConnection />
+        </div>
+      </Header>
 
       <div className="container mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-12 gap-8">
-          {/* Main Content */}
           <div className="lg:col-span-9">
             <Tabs defaultValue="my-courses" className="space-y-6">
               <TabsList className="grid w-full grid-cols-4">
@@ -104,15 +66,11 @@ const Dashboard = () => {
                 <TabsTrigger value="rewards">Rewards</TabsTrigger>
               </TabsList>
 
-              {/* My Courses Tab */}
               <TabsContent value="my-courses" className="space-y-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold">Continue Learning</h2>
-                  <Badge variant="secondary">
-                    {enrolledCourses.length} Active Courses
-                  </Badge>
+                  <Badge variant="secondary">{enrolledCourses.length} Active Courses</Badge>
                 </div>
-                
                 <div className="flex flex-col md:grid grid-cols-2 gap-6">
                   {enrolledCourses.map((course) => (
                     <Card key={course.id} className="hover:shadow-lg transition-shadow">
@@ -122,9 +80,7 @@ const Dashboard = () => {
                             <CardTitle className="text-lg">{course.title}</CardTitle>
                             <CardDescription>by {course.instructor}</CardDescription>
                           </div>
-                          <Badge className="bg-green-100 text-green-800">
-                            {course.progress}%
-                          </Badge>
+                          <Badge className="bg-green-100 text-green-800">{course.progress}%</Badge>
                         </div>
                       </CardHeader>
                       <CardContent className="space-y-4">
@@ -140,37 +96,23 @@ const Dashboard = () => {
                 </div>
               </TabsContent>
 
-              {/* Browse Courses Tab */}
               <TabsContent value="browse" className="space-y-6">
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="relative flex-1">
                     <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input
-                      placeholder="Search courses..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10"
-                    />
+                    <Input placeholder="Search courses..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10" />
                   </div>
                   <Button variant="outline" className="flex items-center gap-2">
-                    <Filter className="h-4 w-4" />
-                    Filters
+                    <Filter className="h-4 w-4" /> Filters
                   </Button>
                 </div>
-
                 <div className="flex gap-2 flex-wrap">
                   {["All", "Blockchain", "DeFi", "Smart Contracts", "Development"].map((category) => (
-                    <Badge
-                      key={category}
-                      variant={selectedCategory === category.toLowerCase() ? "default" : "secondary"}
-                      className="cursor-pointer"
-                      onClick={() => setSelectedCategory(category.toLowerCase())}
-                    >
+                    <Badge key={category} variant={selectedCategory === category.toLowerCase() ? "default" : "secondary"} className="cursor-pointer" onClick={() => setSelectedCategory(category.toLowerCase())}>
                       {category}
                     </Badge>
                   ))}
                 </div>
-
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {availableCourses.map((course) => (
                     <CourseCard key={course.id} course={course} />
@@ -178,37 +120,23 @@ const Dashboard = () => {
                 </div>
               </TabsContent>
 
-              {/* Certificates Tab */}
               <TabsContent value="certificates">
                 <CertificateGallery />
               </TabsContent>
 
-              {/* Rewards Tab */}
               <TabsContent value="rewards" className="space-y-6">
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Coins className="h-5 w-5 text-yellow-600" />
-                      LEARN Token Rewards
+                      <Coins className="h-5 w-5 text-yellow-600" /> LEARN Token Rewards
                     </CardTitle>
-                    <CardDescription>
-                      Earn tokens by completing courses and participating in governance
-                    </CardDescription>
+                    <CardDescription>Earn tokens by completing courses and participating in governance</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid md:grid-cols-3 gap-4">
-                      <div className="text-center p-4 bg-blue-50 rounded-lg">
-                        <div className="text-2xl font-bold text-blue-600">1,250</div>
-                        <div className="text-sm text-gray-600">Total Earned</div>
-                      </div>
-                      <div className="text-center p-4 bg-green-50 rounded-lg">
-                        <div className="text-2xl font-bold text-green-600">75</div>
-                        <div className="text-sm text-gray-600">This Week</div>
-                      </div>
-                      <div className="text-center p-4 bg-purple-50 rounded-lg">
-                        <div className="text-2xl font-bold text-purple-600">5</div>
-                        <div className="text-sm text-gray-600">Streak Days</div>
-                      </div>
+                      <div className="text-center p-4 bg-blue-50 rounded-lg"><div className="text-2xl font-bold text-blue-600">1,250</div><div className="text-sm text-gray-600">Total Earned</div></div>
+                      <div className="text-center p-4 bg-green-50 rounded-lg"><div className="text-2xl font-bold text-green-600">75</div><div className="text-sm text-gray-600">This Week</div></div>
+                      <div className="text-center p-4 bg-purple-50 rounded-lg"><div className="text-2xl font-bold text-purple-600">5</div><div className="text-sm text-gray-600">Streak Days</div></div>
                     </div>
                   </CardContent>
                 </Card>
@@ -216,82 +144,43 @@ const Dashboard = () => {
             </Tabs>
           </div>
 
-          {/* Sidebar */}
           <div className="lg:col-span-3 space-y-6">
-            {/* Learning Stats */}
             <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Learning Progress</CardTitle>
-              </CardHeader>
+              <CardHeader><CardTitle className="text-lg">Learning Progress</CardTitle></CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">Courses Completed</span>
-                  <span className="font-semibold">12</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">Certificates Earned</span>
-                  <span className="font-semibold">8</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">Study Streak</span>
-                  <span className="font-semibold">5 days</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">LEARN Tokens</span>
-                  <span className="font-semibold text-yellow-600">1,250</span>
-                </div>
+                <div className="flex justify-between"><span className="text-sm text-gray-600">Courses Completed</span><span className="font-semibold">12</span></div>
+                <div className="flex justify-between"><span className="text-sm text-gray-600">Certificates Earned</span><span className="font-semibold">8</span></div>
+                <div className="flex justify-between"><span className="text-sm text-gray-600">Study Streak</span><span className="font-semibold">5 days</span></div>
+                <div className="flex justify-between"><span className="text-sm text-gray-600">LEARN Tokens</span><span className="font-semibold text-yellow-600">1,250</span></div>
               </CardContent>
             </Card>
 
-            {/* Achievements */}
             <Card>
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Award className="h-5 w-5 text-yellow-600" />
-                  Recent Achievements
-                </CardTitle>
-              </CardHeader>
+              <CardHeader><CardTitle className="text-lg flex items-center gap-2"><Award className="h-5 w-5 text-yellow-600" /> Recent Achievements</CardTitle></CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-3 p-2 bg-yellow-50 rounded-lg">
                   <Award className="h-6 w-6 text-yellow-600" />
-                  <div>
-                    <div className="font-medium text-sm">Smart Contract Expert</div>
-                    <div className="text-xs text-gray-600">Completed advanced course</div>
-                  </div>
+                  <div><div className="font-medium text-sm">Smart Contract Expert</div><div className="text-xs text-gray-600">Completed advanced course</div></div>
                 </div>
                 <div className="flex items-center gap-3 p-2 bg-blue-50 rounded-lg">
                   <Users className="h-6 w-6 text-blue-600" />
-                  <div>
-                    <div className="font-medium text-sm">Community Helper</div>
-                    <div className="text-xs text-gray-600">Helped 10 students</div>
-                  </div>
+                  <div><div className="font-medium text-sm">Community Helper</div><div className="text-xs text-gray-600">Helped 10 students</div></div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Upcoming Events */}
             <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Upcoming Events</CardTitle>
-              </CardHeader>
+              <CardHeader><CardTitle className="text-lg">Upcoming Events</CardTitle></CardHeader>
               <CardContent className="space-y-3">
-                <div className="p-3 border rounded-lg">
-                  <div className="font-medium text-sm">Governance Vote</div>
-                  <div className="text-xs text-gray-600">Platform improvement proposal</div>
-                  <div className="text-xs text-blue-600 mt-1">Ends in 2 days</div>
-                </div>
-                <div className="p-3 border rounded-lg">
-                  <div className="font-medium text-sm">Live Webinar</div>
-                  <div className="text-xs text-gray-600">DeFi on Cardano</div>
-                  <div className="text-xs text-green-600 mt-1">Tomorrow 3 PM UTC</div>
-                </div>
+                <div className="p-3 border rounded-lg"><div className="font-medium text-sm">Governance Vote</div><div className="text-xs text-gray-600">Platform improvement proposal</div><div className="text-xs text-blue-600 mt-1">Ends in 2 days</div></div>
+                <div className="p-3 border rounded-lg"><div className="font-medium text-sm">Live Webinar</div><div className="text-xs text-gray-600">DeFi on Cardano</div><div className="text-xs text-green-600 mt-1">Tomorrow 3 PM UTC</div></div>
               </CardContent>
             </Card>
           </div>
         </div>
       </div>
     </div>
-  );}}
+  );
 };
 
 export default Dashboard;

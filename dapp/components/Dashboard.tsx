@@ -45,7 +45,7 @@ const Dashboard = () => {
   }
 
   const firstName = session.user?.name?.trim().split(/\s+/)[0] || 'User';
-
+  const role= session.user?.role;
   return (
     <div className="max-w-full min-h-screen bg-gray-50">
       <Header title={`Welcome ${firstName.toUpperCase()}`}>

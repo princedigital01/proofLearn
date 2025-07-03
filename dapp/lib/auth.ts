@@ -1,12 +1,11 @@
-
-import { NextAuthOptions } from 'next-auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import bcrypt from 'bcryptjs'
-
+import { NextAuthOptions } from 'next-auth'
 import { connectDB } from '@/lib/mongodb'
-import User from '@/models/User'        
+import Counter from '@/models/Counter'
+import User from '@/models/User' 
+import bcrypt from 'bcryptjs'       
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -38,6 +37,46 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+      async signIn({ user, account, profile }) {
+      // We only want to run this logic for OAuth providers (google, github)
+      if (account?.provider === 'google' || account?.provider === 'github') {
+        await connectDB();
+        try {
+          // Check if a user with this email already exists
+          const existingUser = await User.findOne({ email: user.email });
+
+          // If the user doesn't exist, create them
+          if (!existingUser) {
+            console.log("User not found, creating new user...");
+
+            // Get the next auto-incrementing ID
+            const counter = await Counter.findByIdAndUpdate(
+              { _id: 'userId' },
+              { $inc: { seq: 1 } },
+              { upsert: true, new: true }
+            );
+            
+            await User.create({
+              id: counter.seq, // Use the new auto-incremented ID
+              name: user.name,
+              email: user.email,
+              // 'image' is often available from the provider profile
+              image: user.image, 
+              // Set a default role if needed
+              role: 'user', 
+            });
+            console.log("New user created successfully.");
+          }
+          return true; // Allow the sign-in
+        } catch (error) {
+          console.error("Error during sign-in process:", error);
+          return false; // Block the sign-in on error
+        }
+      }
+      
+      
+      return true; 
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = (user as any).id;

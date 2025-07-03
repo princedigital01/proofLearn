@@ -34,7 +34,7 @@ const UserSchema = new Schema<IUser>(
     },
     image: {
       type: String, // URL from GitHub/Google
-      default: "image/profile.jpg",
+      default: "/image/profile.jpg",
     },
     wallet: {
       type: String,

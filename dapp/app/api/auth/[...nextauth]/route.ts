@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
@@ -23,30 +24,30 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        await connectDB()
-        const user = await User.findOne({ email: credentials?.email })
 
-        if (!user) throw new Error('User not found')
-        // For demo only — implement bcrypt compare here
-        return user
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error('Email and password are required');
+        }
+
+        await connectDB();
+
+        const user = await User.findOne({ email: credentials.email });
+        if (!user) throw new Error('Email not found');
+
+        const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+        if (!isPasswordValid) throw new Error('Invalid password');
+
+        return user;
       },
     }),
   ],
 
-  pages: {
-    error: '/auth/error', // Custom error page route
-    signIn: '/login',      // Optional: your custom login page
-  },
-
   callbacks: {
-
-     async redirect({ url, baseUrl }) {
-      return '/dashboard' // 👈 default for all logins
-    },
 
     async jwt({ token, user }) {
       if (user) {
         token.id = (user as any).id
+        token.name = (user as any).name
         token.email = user.email
         token.role = (user as any).role || 'user'
       }
@@ -56,6 +57,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       session.user = {
         id: token.id as number,
+        name: token.name as string,
         email: token.email as string,
         role: token.role as 'user' | 'educator' | 'admin',
       }

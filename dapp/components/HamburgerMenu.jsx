@@ -18,7 +18,7 @@ export default function HamburgerMenu({ links }) {
             </button>
 
             {isOpen && (
-                <div className="absolute top-full right-0 w-screen bg-white shadow-md flex flex-col gap-6 p-6">
+                <div className="absolute top-full right-0 w-[50vw] bg-white shadow-md flex flex-col gap-6 p-6">
                     {links.map((link) => (
                         <Link key={link.id} href={link.href} onClick={() => setIsOpen(false)} className="block text-lg font-medium hover:underline">
                             {link.title}

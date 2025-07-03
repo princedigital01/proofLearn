@@ -27,7 +27,7 @@ export const WalletConnection = () => {
 
   if (!isConnected) {
     return (
-      <Button onClick={handleConnect} className="flex items-center gap-2">
+      <Button onClick={handleConnect} className="flex items-center gap-2 w-full">
         <Wallet className="h-4 w-4" />
         Connect Wallet
       </Button>

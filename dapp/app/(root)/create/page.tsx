@@ -12,14 +12,15 @@ const CreateAccountPage = () => {
   const [fullName, setFullName] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [text, setText] = useState('Create Account')
   const [agreeToTerms, setAgreeToTerms] = useState(false)
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault()
     setError('')
-    setLoading(true)
+    setText("loading...")
 
-    function hasTwoToFourNames(fullName) {
+    function hasTwoToFourNames(fullName:String) {
   if (!fullName) return false; 
   const parts = fullName.trim().split(/\s+/);
   return parts.length >= 2 && parts.length <= 4;
@@ -28,25 +29,25 @@ const CreateAccountPage = () => {
 
     if (!fullName || !email || !password) {
       setError('Please fill in all required fields.')
-      setLoading(false)
+      setText('Create Account')
       return
     }
 
     if(password.length <=5){
       setError('Password must be more than 5 letters.')
-      setLoading(false)
+      setText('Create Account')
       return
     }
 
     if(!hasTwoToFourNames(fullName)){
       setError('minimum of 2 names maximum of 4.')
-      setLoading(false)
+      setText('Create Account')
       return
     }
 
     if (!agreeToTerms) {
       setError('You must agree to the terms and conditions.')
-      setLoading(false)
+      setText('Create Account')
       return
     }
     console.log("done1")
@@ -62,30 +63,29 @@ const CreateAccountPage = () => {
           role: 'user',
         }),
       })
-      console.log("done2")
       const data = await res.json()
-      console.log("done3")
       if (!res.ok) throw new Error(data.error || 'Signup failed')
-        console.log("done4")
-      // Step 2: Auto-login
+
+      setText('success wait...')
       const login = await signIn('credentials', {
         email,
         password,
-        redirect: false,
-        callbackUrl: '/dashboard',
+        redirect:false
       })
-      console.log("done5")
       if (login?.error) {
-        setError('Account created but login failed.')
+        setError('Account created but login failed.<a href="/login">try to login</a>')
+        setText('Create Account')
       } else {
         router.push('/dashboard')
+        setText('logging in...')
       }
-
-    } catch (err) {
-      setError(err.message)
-    } finally {
       setLoading(false)
-    }
+
+    } catch (err:any) {
+      console.log(err)
+      setText('Create Account')
+      setError(err.message)
+    } 
   }
 
   return (
@@ -211,7 +211,7 @@ const CreateAccountPage = () => {
                   : 'bg-indigo-300 cursor-not-allowed'
               }`}
             >
-              {loading ? 'Creating...' : 'Create Account'}
+              {text}
             </button>
           </form>
         </div>

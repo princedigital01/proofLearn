@@ -1,34 +1,40 @@
 "use client"
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
-   const [error, setError] = useState('');
+
   const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+  const [text, setText] = useState('Sign in');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can integrate your login logic or API call here
-    // const res = await fetch('/api/login', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ email, password, rememberMe }),
-    // });
+    setError("")
+    setText("loading...")
+    
+    const res = await signIn('credentials', {
+      email,
+      password,
+      redirect:false
+    });
 
-    // const data = await res.json();
-
-    // if (res.ok) {
-    //   // Redirect or show success
-    //   router.push('/dashboard'); // or whatever page
-    // } else {
-    //   setError(data.message || 'Login failed');
-    // }
-    router.push('/dashboard')
-    console.log({ email, password, rememberMe });
+    if (res.error) {
+      setError(res.error);
+      setText("Sign in")
+      console.log(res)
+     
+    } else {
+     router.push('/dashboard')
+     setText("success wait...")
+    }
+     
   };
 
   return (
@@ -109,7 +115,7 @@ const LoginPage = () => {
                 type="submit"
                 className="group w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Sign in
+                {text}
               </button>
             </div>
           </form>
@@ -124,24 +130,27 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <div className="mt-6 grid-cols-3 gap-3 justify-around flex mb-5">
+            <div>
+            <div className="mb-6 flex justify-around gap-4">
               {[
-                { icon: 'github.svg', alt: 'Twitter' },
-                { icon: 'google.svg', alt: 'Google' },
-              ].map(({ icon, alt }, idx) => (
-                <a
-                  key={idx}
-                  href="#"
-                  className="flex justify-center items-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                { icon: 'github.svg', alt: 'GitHub', provider: 'github' },
+                { icon: 'google.svg', alt: 'Google', provider: 'google' },
+              ].map(({ icon, alt, provider }) => (
+                <button
+                  key={provider}
+                  onClick={() => signIn(provider)}
+                  className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm text-gray-700 bg-white hover:bg-gray-50 w-full justify-center"
                 >
                   <img
-                    className={icon === 'google.svg' ? 'h-6 w-6' : 'h-5 w-5'}
                     src={`/${icon}`}
                     alt={alt}
+                    className={icon === 'google.svg' ? 'h-6 w-6' : 'h-5 w-5'}
                   />
-                </a>
+                  {alt}
+                </button>
               ))}
             </div>
+          </div>
           </div>
         </div>
       </div>

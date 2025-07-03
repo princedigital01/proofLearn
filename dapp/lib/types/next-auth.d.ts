@@ -6,6 +6,7 @@ declare module 'next-auth' {
       id: number
       email: string
       role: 'user' | 'educator' | 'admin'
+      name?: string;
     }
   }
 
@@ -13,6 +14,7 @@ declare module 'next-auth' {
     id: number
     email: string
     role: 'user' | 'educator' | 'admin'
+    name?: string;
   }
 }
 
@@ -21,5 +23,6 @@ declare module 'next-auth/jwt' {
     id: number
     email: string
     role: 'user' | 'educator' | 'admin'
+    name?: string;
   }
 }

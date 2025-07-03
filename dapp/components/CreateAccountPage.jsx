@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 const CreateAccountPage = () => {
   const router = useRouter()
+  const [text, setText] = useState('signup')
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const [fullName, setFullName] = useState('')
@@ -17,6 +18,7 @@ const CreateAccountPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+    setText('loading...')
     setLoading(true)
 
     function hasTwoToFourNames(fullName) {
@@ -67,23 +69,16 @@ const CreateAccountPage = () => {
       console.log("done3")
       if (!res.ok) throw new Error(data.error || 'Signup failed')
         console.log("done4")
-      // Step 2: Auto-login
-      const login = await signIn('credentials', {
-        email,
-        password,
-        redirect: false,
-        callbackUrl: '/dashboard',
-      })
-      console.log("done5")
-      if (login?.error) {
-        setError('Account created but login failed.')
-      } else {
-        router.push('/dashboard')
-      }
+     
 
     } catch (err) {
       setError(err.message)
+      console.log(err)
     } finally {
+      setText("done")
+      setInterval(()=>{
+        setText('signUp')
+      },1000)
       setLoading(false)
     }
   }
@@ -211,7 +206,9 @@ const CreateAccountPage = () => {
                   : 'bg-indigo-300 cursor-not-allowed'
               }`}
             >
-              {loading ? 'Creating...' : 'Create Account'}
+              {//loading ? 'Creating...' : 'Create Account'
+              }
+              {text}
             </button>
           </form>
         </div>

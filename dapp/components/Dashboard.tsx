@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from "react"; 
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,8 +14,16 @@ import { WalletConnection } from "@/components/WalletConnection";
 import { CourseCard } from "@/components/CourseCard";
 import { CertificateGallery } from "@/components/CertificateGallery";
 import { TokenBalance } from "@/components/TokenBalance";
+import { useSession } from 'next-auth/react';
+import Header from "./Header";
+import Loading from "@/app/loading";
 
 const Dashboard = () => {
+
+  const { data: session, status } = useSession();
+  
+
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -65,28 +74,23 @@ const Dashboard = () => {
     }
   ];
 
+  if(status=="loading"){
+    return (<Loading/>)
+  }else{
+  if (!session) {
+    const router = useRouter();
+    router.push('/login')
+  }else{
   return (
     <div className="max-w-full min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-2">
-                <Link href= '/'><BookOpen className="h-8 w-8 text-blue-600" /></Link>
-                <span className="hidden md:text-2xl font-bold"><Link href= "/">Learn on Cardano</Link></span>
-              </div>
-              <nav className="hidden md:flex space-x-6 text-red">
-                
-              </nav>
-            </div>
-            <div className="flex items-center space-x-4">
+          <Header title={`welcome ${session?.user?.name.trim().split(/\s+/)[0].toUpperCase()}`}>
+            <div className="mr-3 flex flex-col lg:flex-row items-center gap-2 ">
               <TokenBalance />
-              <WalletConnection />
+              <WalletConnection  />
             </div>
-          </div>
-        </div>
-      </header>
+          </Header>
+          
 
       <div className="container mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-12 gap-8">
@@ -287,7 +291,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-  );
+  );}}
 };
 
 export default Dashboard;

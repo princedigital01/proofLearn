@@ -3,7 +3,6 @@ import { connectDB } from '@/lib/mongodb'
 import User from '@/models/User'
 import bcrypt from 'bcryptjs'
 import Counter from '@/models/Counter'
-import { sendWelcomeEmail, sendNewUserEmail } from '@/lib/email'
 
 console.log("done11")
 interface CreateUserBody {
@@ -49,7 +48,8 @@ export async function POST(req: Request) {
       { new: true, upsert: true }
     )
 
-    const hashedPassword = await bcrypt.hash(pass, 10)
+    const saltRounds = parseInt(process.env.BCRYPT_SALT as string, 10);
+    const hashedPassword = await bcrypt.hash(pass, saltRounds);
 
     const newUser = await User.create({
       id: counter.seq,
@@ -60,17 +60,6 @@ export async function POST(req: Request) {
       password: hashedPassword,
     })
     console.log("done16")
-
-    // ✅ Only send welcome email if account is successfully created
-    const e1=await sendWelcomeEmail(email, name)
-    
-    if(e1.error){
-      console.log(e1.error)
-    }
-    const e2 =await sendNewUserEmail(email)
-    if(e2.error){
-      console.log("error at e2")
-    }
 
     return NextResponse.json({ success: true, user: newUser }, { status: 201 })
 

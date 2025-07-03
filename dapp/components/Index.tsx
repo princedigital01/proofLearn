@@ -1,37 +1,15 @@
 'use client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"; 
-
 import { BookOpen, Shield, Award, Users, Coins, Vote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import Header from "@/components/Header"
 import Link from "next/link";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <BookOpen className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-900"><Link href= "/">Learn on Cardano</Link></span>
-          </div>
-          <nav className="hidden md:flex space-x-6">
-            <Link href="/courses" className="text-gray-600 hover:text-blue-600 transition-colors">Courses</Link>
-            <Link href="/educators" className="text-gray-600 hover:text-blue-600 transition-colors">Teach</Link>
-            <Link href="/governance" className="text-gray-600 hover:text-blue-600 transition-colors">Governance</Link>
-            <Link href="/staking" className="text-gray-600 hover:text-blue-600 transition-colors">Stake</Link>
-          </nav>
-          <div className="flex space-x-3">
-            <Button variant="outline" asChild>
-              <Link href="/login">Login</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/dashboard">Get Started</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen ">
+        
 
       {/* Hero Section */}
       <section className="py-20 px-4">

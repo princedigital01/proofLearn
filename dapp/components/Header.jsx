@@ -1,0 +1,54 @@
+import React from 'react'
+import Link from "next/link";
+import { navLinks } from '@/constants'
+import { BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import HamburgerMenu from '@/components/HamburgerMenu'
+
+const Header = ({ title }) => {
+    return (
+        <header className="border-b bg-white backdrop-blur-md sticky top-0 z-50">
+            <div className="container mx-auto px-4 py-4 items-center justify-between hidden md:flex ">
+                <div className="flex items-center space-x-2">
+                    <BookOpen className="h-8 w-8 text-blue-600" />
+                    <span className="text-2xl font-bold text-gray-900">{title}</span>
+                </div>
+                <nav className="space-x-6">
+                    {navLinks.map((link) => (
+                        <Link
+                            key={link.id}
+                            href={link.href}
+                            className="text-gray-600 hover:text-blue-600 transition-colors"
+                        >{link.title}</Link>
+                    ))}
+
+
+                </nav>
+
+                <div className="flex space-x-3">
+                    <Button variant="outline" asChild>
+                        <Link href="/login">Login</Link>
+                    </Button>
+                    <Button asChild>
+                        <Link href="/create">Get Started</Link>
+                    </Button>
+                </div>
+            </div>
+            <div className="container mx-auto px-4 py-4 flex items-center justify-between md:hidden ">
+                <div className="flex items-center space-x-2">
+                    <BookOpen className="h-8 w-8 text-blue-600" />
+                    <span className="text-2xl font-bold text-gray-900">{title}</span>
+                </div>
+                <div className="flex space-x-3">
+                    <Button variant="outline" asChild>
+                        <Link href="/login">Login</Link>
+                    </Button>
+
+                    <HamburgerMenu links={navLinks}/>
+                </div>
+            </div>
+        </header>
+    )
+}
+
+export default Header

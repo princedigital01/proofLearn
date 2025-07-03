@@ -10,7 +10,7 @@ const LoginPage = () => {
    const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // You can integrate your login logic or API call here
     // const res = await fetch('/api/login', {

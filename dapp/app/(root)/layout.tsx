@@ -1,22 +1,22 @@
-"use client";
-
-import Header from "@/components/Header";
-import { SessionProvider } from "next-auth/react";
-
-const RootLayout = ({
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"; 
+import AuthProvider from "@/components/authProvider"; 
+export default async function RootLayout({
   children,
-  session,
 }: {
   children: React.ReactNode;
-  session: any;
-}) => {
-  return (
-    <SessionProvider session={session}>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-        {children}
-      </div>
-    </SessionProvider>
-  );
-};
+}) {
+ 
+  const session = await getServerSession(authOptions);
 
-export default RootLayout;
+  return (
+        
+        <AuthProvider session={session}>
+          <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+           
+            {children}
+          </div>
+        </AuthProvider>
+      
+  );
+}

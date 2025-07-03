@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import Header from '@/components/Header'
 
 const CreateAccountPage = () => {
   const router = useRouter()
@@ -89,7 +90,11 @@ const CreateAccountPage = () => {
   }
 
   return (
+    <div>
+      <Header title={"Signup"}>{""}</Header>
+    
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+      
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="text-center text-3xl font-extrabold text-gray-900">
           Create your account
@@ -216,6 +221,7 @@ const CreateAccountPage = () => {
           </form>
         </div>
       </div>
+    </div>
     </div>
   )
 }

@@ -53,8 +53,9 @@ const Header = ({children, title }) => {
                 </div>
 
             </div>
-            <div className="container mx-auto px-4 py-4 flex items-center justify-between md:hidden ">
-                <div className="flex items-center space-x-2">
+            <div className="container mx-auto px-4 py-4 flex flex-col items-center justify-between md:hidden ">
+                <div className='flex'>
+                    <div className="flex items-center space-x-2">
                     <BookOpen className="h-8 w-8 text-blue-600" />
                     <span className="text-2xl font-bold text-gray-900">{title}</span>
                 </div>
@@ -62,7 +63,6 @@ const Header = ({children, title }) => {
                     {session ? (
                         // User is logged in
                         <>
-                        {children}
                         <Button variant="outline" onClick={() => signOut()}>
                             Sign Out
                         </Button>
@@ -78,8 +78,12 @@ const Header = ({children, title }) => {
                     )}
 
                     <HamburgerMenu links={navLinks} />
+                    
                 </div>
+                </div>
+                <div className='w-screen'>{children}</div>
             </div>
+            
         </header>
     )
 }

@@ -30,6 +30,7 @@ export const authOptions: NextAuthOptions = {
         await connectDB();
         const user = await User.findOne({ email: credentials.email });
         if (!user) throw new Error('Email not found');
+        if (!user.password) throw new Error('sorry wrong signin method');
         const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
         if (!isPasswordValid) throw new Error('Invalid password');
         return user;
@@ -57,20 +58,18 @@ export const authOptions: NextAuthOptions = {
             );
             
             await User.create({
-              id: counter.seq, // Use the new auto-incremented ID
+              id: counter.seq, 
               name: user.name,
               email: user.email,
-              // 'image' is often available from the provider profile
               image: user.image, 
-              // Set a default role if needed
               role: 'user', 
             });
             console.log("New user created successfully.");
           }
-          return true; // Allow the sign-in
+          return true; 
         } catch (error) {
           console.error("Error during sign-in process:", error);
-          return false; // Block the sign-in on error
+          return false; 
         }
       }
       

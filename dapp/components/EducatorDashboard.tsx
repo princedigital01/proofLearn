@@ -18,8 +18,10 @@ import {
   Award,
   Coins
 } from "lucide-react";
+import Header from "./Header";
+import Link from "next/link";
 
-const EducatorDashboard = () => {
+const EducatorDashboard = ({name=""}) => {
   const [courses] = useState([
     {
       id: 1,
@@ -60,34 +62,21 @@ const EducatorDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-2">
-                <BookOpen className="h-8 w-8 text-blue-600" />
-                <span className="text-2xl font-bold">Educator Portal</span>
-              </div>
-              <nav className="hidden md:flex space-x-6">
-                <Button variant="ghost">Dashboard</Button>
-                <Button variant="ghost">My Courses</Button>
-                <Button variant="ghost">Analytics</Button>
-                <Button variant="ghost">Earnings</Button>
-              </nav>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Button className="flex items-center gap-2">
+      <Header title={`hi ${name}`}>
+        <div className="flex justify-center items-center space-x-4">
+          <Link href={"/educators/createcourse"}>
+              <Button  className="flex items-center gap-2">
+                
                 <Plus className="h-4 w-4" />
                 Create Course
               </Button>
+              </Link>
               <div className="flex items-center gap-2 px-3 py-2 bg-green-100 rounded-lg">
                 <Coins className="h-4 w-4 text-green-600" />
                 <span className="font-semibold text-green-800">2,450 LEARN</span>
               </div>
             </div>
-          </div>
-        </div>
-      </header>
+      </Header>
 
       <div className="container mx-auto px-4 py-8">
         {/* Stats Overview */}

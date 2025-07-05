@@ -4,7 +4,7 @@ import GitHubProvider from 'next-auth/providers/github'
 import { NextAuthOptions } from 'next-auth'
 import { connectDB } from '@/lib/mongodb'
 import Counter from '@/models/Counter'
-import User from '@/models/User' 
+import User from '@/models/user/User' 
 import bcrypt from 'bcryptjs'       
 
 export const authOptions: NextAuthOptions = {
@@ -37,6 +37,10 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: "/login",
+    error: "/login", // ⬅ redirect all errors to your form
+  },
   callbacks: {
       async signIn({ user, account, profile }) {
       // We only want to run this logic for OAuth providers (google, github)

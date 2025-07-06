@@ -41,8 +41,11 @@ interface QuizDoc {
 }
 
 
-export async function GET(req: Request, context: { params: { id: string } }) {
-  const { id } = context.params
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
 
   try {
     await connectDB()

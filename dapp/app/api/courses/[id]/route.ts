@@ -86,8 +86,11 @@ export async function  GET(
   }
 }
 
-export async function PUT(req: Request, context: { params: { id: string } }) {
-  const { id } = context.params
+export async function PUT(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params
 
   try {
     const session = await getServerSession(authOptions)

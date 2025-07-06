@@ -17,6 +17,8 @@ import { TokenBalance } from "@/components/TokenBalance";
 import { useSession } from 'next-auth/react';
 import Header from "./Header";
 import Loading from "@/app/loading";
+import EnrolledCourses from "./user/EnrolledCourses";
+import AvaliableCourses from "./user/avaliableCourses";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -30,10 +32,6 @@ const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const enrolledCourses = [
-    { id: 1, title: "Cardano Smart Contracts with Aiken", instructor: "Alice Thompson", progress: 75, totalLessons: 12, completedLessons: 9, image: "/placeholder.svg?height=200&width=300" },
-    { id: 2, title: "DeFi Fundamentals on Cardano", instructor: "Bob Martinez", progress: 40, totalLessons: 15, completedLessons: 6, image: "/placeholder.svg?height=200&width=300" }
-  ];
 
   const availableCourses = [
     { id: 3, title: "Building DApps with Mesh.js", instructor: "Carol Davis", price: 500, rating: 4.8, students: 234, duration: "8 hours", level: "Intermediate", image: "/placeholder.svg?height=200&width=300" },
@@ -45,7 +43,7 @@ const Dashboard = () => {
   }
 
   const firstName = session.user?.name?.trim().split(/\s+/)[0] || 'User';
-  const role= session.user?.role;
+  const role = session.user?.role;
   return (
     <div className="max-w-full min-h-screen bg-gray-50">
       <Header title={`Welcome ${firstName.toUpperCase()}`}>
@@ -66,58 +64,13 @@ const Dashboard = () => {
                 <TabsTrigger value="rewards">Rewards</TabsTrigger>
               </TabsList>
 
+
               <TabsContent value="my-courses" className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold">Continue Learning</h2>
-                  <Badge variant="secondary">{enrolledCourses.length} Active Courses</Badge>
-                </div>
-                <div className="flex flex-col md:grid grid-cols-2 gap-6">
-                  {enrolledCourses.map((course) => (
-                    <Card key={course.id} className="hover:shadow-lg transition-shadow">
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle className="text-lg">{course.title}</CardTitle>
-                            <CardDescription>by {course.instructor}</CardDescription>
-                          </div>
-                          <Badge className="bg-green-100 text-green-800">{course.progress}%</Badge>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <Progress value={course.progress} className="h-2" />
-                        <div className="flex justify-between text-sm text-gray-600">
-                          <span>{course.completedLessons}/{course.totalLessons} lessons</span>
-                          <span>{course.totalLessons - course.completedLessons} remaining</span>
-                        </div>
-                        <Button className="w-full">Continue Course</Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                <EnrolledCourses />
               </TabsContent>
 
-              <TabsContent value="browse" className="space-y-6">
-                <div className="flex flex-col md:flex-row gap-4">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input placeholder="Search courses..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10" />
-                  </div>
-                  <Button variant="outline" className="flex items-center gap-2">
-                    <Filter className="h-4 w-4" /> Filters
-                  </Button>
-                </div>
-                <div className="flex gap-2 flex-wrap">
-                  {["All", "Blockchain", "DeFi", "Smart Contracts", "Development"].map((category) => (
-                    <Badge key={category} variant={selectedCategory === category.toLowerCase() ? "default" : "secondary"} className="cursor-pointer" onClick={() => setSelectedCategory(category.toLowerCase())}>
-                      {category}
-                    </Badge>
-                  ))}
-                </div>
-                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {availableCourses.map((course) => (
-                    <CourseCard key={course.id} course={course} />
-                  ))}
-                </div>
+              <TabsContent value="browse">
+                <AvaliableCourses />
               </TabsContent>
 
               <TabsContent value="certificates">

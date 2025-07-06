@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Users, Clock, Coins } from "lucide-react";
+import Link from "next/link";
 
 interface Course {
   id: number;
@@ -22,6 +23,8 @@ interface CourseCardProps {
 }
 
 export const CourseCard = ({ course }: CourseCardProps) => {
+
+  console.log(course)
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       <div className="aspect-video relative">
@@ -64,7 +67,7 @@ export const CourseCard = ({ course }: CourseCardProps) => {
               <span className="text-sm">LEARN</span>
             </div>
           </div>
-          <Button>Enroll Now</Button>
+          <Link href={`enroll/${course.id}`}><Button>Enroll Now</Button></Link>
         </div>
       </CardContent>
     </Card>

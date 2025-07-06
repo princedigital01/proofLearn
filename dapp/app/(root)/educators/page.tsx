@@ -23,10 +23,10 @@ const page = () => {
         return <Loading />;
       }
 
-    const firstName = session.user?.name?.trim().split(/\s+/)[0] || 'User';
-    const role= session.user?.role;
+     const firstName = session.user?.name?.trim().split(/\s+/)[0] || 'User';
+    // const email= session.user?.email;
   return (
-    <EducatorDashboard name={firstName}/>
+    <EducatorDashboard name={firstName} />
   )
 }
 

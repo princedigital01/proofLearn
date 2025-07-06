@@ -20,9 +20,10 @@ import {
 } from "lucide-react";
 import Header from "./Header";
 import Link from "next/link";
+import MyCourses from "./educators/mycourses";
 
 const EducatorDashboard = ({name=""}) => {
-  const [courses] = useState([
+  const [courses, setCourse] = useState([
     {
       id: 1,
       title: "Cardano Smart Contracts with Aiken",
@@ -54,6 +55,8 @@ const EducatorDashboard = ({name=""}) => {
       image: "/placeholder.svg?height=200&width=300"
     }
   ]);
+  
+
 
   const totalStudents = courses.reduce((sum, course) => sum + course.students, 0);
   const totalRevenue = courses.reduce((sum, course) => sum + course.revenue, 0);
@@ -146,69 +149,16 @@ const EducatorDashboard = ({name=""}) => {
           <TabsContent value="courses" className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Course Management</h2>
+              <Link href="/educators/createcourse">
               <Button className="flex items-center gap-2">
                 <Plus className="h-4 w-4" />
                 Create New Course
               </Button>
+              </Link>
             </div>
 
-            <div className="flex flex-col md:grid grid-cols-2 gap-6">
-              {courses.map((course) => (
-                <Card key={course.id} className="p-6">
-                  <div className="flex items-start justify-between">
-                    <div className="flex gap-4">
-                      <img 
-                        src={course.image} 
-                        alt={course.title}
-                        className="w-24 h-16 object-cover rounded-lg"
-                      />
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-3">
-                          <h3 className="text-lg font-semibold">{course.title}</h3>
-                          <Badge variant={course.status === 'published' ? 'default' : 'secondary'}>
-                            {course.status}
-                          </Badge>
-                        </div>
-                        <div className="flex items-center gap-6 text-sm text-gray-600">
-                          <div className="flex items-center gap-1">
-                            <Users className="h-4 w-4" />
-                            {course.students} students
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <DollarSign className="h-4 w-4" />
-                            ${course.revenue} revenue
-                          </div>
-                          {course.rating > 0 && (
-                            <div className="flex items-center gap-1">
-                              <Award className="h-4 w-4" />
-                              {course.rating} rating
-                            </div>
-                          )}
-                        </div>
-                        {course.status === 'draft' && (
-                          <div className="space-y-2">
-                            <div className="flex justify-between text-sm">
-                              <span>Course completion</span>
-                              <span>{course.completion}%</span>
-                            </div>
-                            <Progress value={course.completion} className="h-2" />
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
+            <MyCourses/>
+            </TabsContent>
 
           {/* Analytics Tab */}
           <TabsContent value="analytics" className="space-y-6">

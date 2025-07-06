@@ -22,10 +22,10 @@ const CourseSchema = new Schema(
     },
     thumbnail:  { 
       type: String, default: 
-      'draft' 
+      '/placeholder.svg' 
     },
     createdBy: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },

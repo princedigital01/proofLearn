@@ -18,7 +18,7 @@ const Header = ({children, title }) => {
                     <BookOpen className="h-8 w-8 text-blue-600" />
                     <span className="text-2xl font-bold text-gray-900">{title}</span>
                 </div>
-                <nav className="space-x-6">
+                <nav className="flex gap-6">
                     {navLinks.map((link) => (
                         <Link
                             key={link.id}
@@ -53,8 +53,8 @@ const Header = ({children, title }) => {
                 </div>
 
             </div>
-            <div className="container mx-auto px-4 py-4 flex flex-col items-center justify-between md:hidden ">
-                <div className='flex'>
+            <div className="container mx-auto px-6 py-4 flex flex-col items-center justify-between gap-3 md:hidden ">
+                <div className='flex w-screen justify-between px-4'>
                     <div className="flex items-center space-x-2">
                     <BookOpen className="h-8 w-8 text-blue-600" />
                     <span className="text-2xl font-bold text-gray-900">{title}</span>

@@ -17,7 +17,7 @@ export const navLinks = [
     id: 2,
     for: 'educator',
     href: '/educators',
-    title: 'Teach',
+    title: 'Educator',
   },
   {
     id: 3,

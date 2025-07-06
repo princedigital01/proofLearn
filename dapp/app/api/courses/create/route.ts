@@ -5,34 +5,38 @@ import Course from '@/models/course/Course'
 import Lesson from '@/models/course/Lesson'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import User from '@/models/user/User' 
 
 export async function POST(req: Request) {
   try {
-    console.log("done1")
+    
     const session = await getServerSession(authOptions)
     if (!session || !session.user?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-console.log("done2")
+
     const body = await req.json()
     const { title, description, category, price, lessons } = body
 
+    const user = await User.findOne({ email: session.user.email })
+if (!user) {
+  return NextResponse.json({ error: 'User not found' }, { status: 404 })
+}
     if (!title || typeof title !== 'string') {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 })
     }
-console.log("done3")
+
     await connectDB()
-console.log("donex")
+    console.log(session.user.id)
     const newCourse = await Course.create({
       title,
       description,
       category,
       price,
-      //thumbnail,
-      createdBy: session.user.id, // You can also look up full user by email if needed
+      createdBy:  user._id, 
       status: 'draft',
     })
-console.log("done4")
+
     if (Array.isArray(lessons)) {
       for (const [index, lesson] of lessons.entries()) {
         await Lesson.create({
@@ -48,7 +52,7 @@ console.log("done4")
 console.log("done5")
     return NextResponse.json({ success: true, courseId: newCourse._id }, { status: 201 })
   } catch (err) {
-    console.error('Create course error:', err)
+    console.log( err)
     return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
 }

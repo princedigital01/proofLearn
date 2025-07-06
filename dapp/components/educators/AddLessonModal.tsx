@@ -1,13 +1,32 @@
-// components/educators/AddLessonModal.tsx
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-export default function AddLessonModal({ onClose, onSave }: { onClose: () => void, onSave: (lesson: any) => void }) {
+export default function AddLessonModal({
+  edit,
+  onClose,
+  onSave,
+  initialLesson
+}: {
+  edit: number,
+  onClose: () => void,
+  onSave: (lesson: any) => void,
+  initialLesson?: any
+}) {
   const [type, setType] = useState<'video' | 'quiz'>('video')
   const [title, setTitle] = useState("")
   const [videoUrl, setVideoUrl] = useState("")
   const [questions, setQuestions] = useState<{ text: string, options: string[], correctAnswer: string }[]>([])
+
+  // 🧠 Prefill state if editing
+  useEffect(() => {
+    if (initialLesson) {
+      setTitle(initialLesson.title || "")
+      setType(initialLesson.type || "video")
+      setVideoUrl(initialLesson.videoUrl || "")
+      setQuestions(initialLesson.quiz?.questions || [])
+    }
+  }, [initialLesson])
 
   const addQuestion = () => {
     setQuestions(prev => [...prev, { text: "", options: ["", "", "", ""], correctAnswer: "" }])
@@ -19,21 +38,23 @@ export default function AddLessonModal({ onClose, onSave }: { onClose: () => voi
       title,
       type,
       videoUrl: type === 'video' ? videoUrl : undefined,
-      quiz: type === 'quiz' ? questions : undefined
+      quiz: type === 'quiz' ? { questions } : undefined
     }
     onSave(lesson)
   }
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-      <div className="bg-white rounded-md p-6 w-full max-w-lg relative">
+      <div className="bg-white rounded-md p-6 w-full max-w-lg relative h-[95vh] overflow-auto">
         <button onClick={onClose} className="absolute right-4 top-4 text-gray-500">✖</button>
 
-        <h2 className="text-xl font-bold mb-4">Add {type === 'video' ? "Lesson" : "Quiz"}</h2>
+        <h2 className="text-xl font-bold mb-4">
+          {edit >= 0 ? "Edit" : "Add"} {type === 'video' ? "Lesson" : "Quiz"}
+        </h2>
 
         <div className="mb-4">
           <label className="block mb-1 text-sm">Type</label>
-          <select value={type} onChange={(e) => setType(e.target.value as 'video' | 'quiz')} className="w-full border px-3 py-2 rounded">
+          <select value={type} onChange={e => setType(e.target.value as 'video' | 'quiz')} className="w-full border px-3 py-2 rounded">
             <option value="video">Lesson (Video)</option>
             <option value="quiz">Quiz</option>
           </select>
@@ -48,6 +69,7 @@ export default function AddLessonModal({ onClose, onSave }: { onClose: () => voi
           <div className="mb-4">
             <label className="block mb-1 text-sm">Video URL</label>
             <input value={videoUrl} onChange={e => setVideoUrl(e.target.value)} className="w-full border px-3 py-2 rounded" />
+            <div className="text-xs text-blue-500 underline mt-1">Upload or paste video link</div>
           </div>
         )}
 
@@ -60,7 +82,7 @@ export default function AddLessonModal({ onClose, onSave }: { onClose: () => voi
                 <input
                   type="text"
                   value={q.text}
-                  onChange={(e) => {
+                  onChange={e => {
                     const copy = [...questions]
                     copy[idx].text = e.target.value
                     setQuestions(copy)
@@ -73,7 +95,7 @@ export default function AddLessonModal({ onClose, onSave }: { onClose: () => voi
                       key={i}
                       placeholder={`Option ${i + 1}`}
                       value={opt}
-                      onChange={(e) => {
+                      onChange={e => {
                         const copy = [...questions]
                         copy[idx].options[i] = e.target.value
                         setQuestions(copy)
@@ -85,7 +107,7 @@ export default function AddLessonModal({ onClose, onSave }: { onClose: () => voi
                 <label className="block text-sm mt-2">Correct Answer</label>
                 <input
                   value={q.correctAnswer}
-                  onChange={(e) => {
+                  onChange={e => {
                     const copy = [...questions]
                     copy[idx].correctAnswer = e.target.value
                     setQuestions(copy)

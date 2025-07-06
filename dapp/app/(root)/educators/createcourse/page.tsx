@@ -1,10 +1,32 @@
 "use client"
-
+import { useSession } from 'next-auth/react';
+import Loading from "@/app/loading";
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Header from "@/components/Header"
 
 export default function CreateCoursePage() {
+
+  
+    const router = useRouter();
+    const { data: session, status } = useSession({
+      required: true,
+      onUnauthenticated() {
+        router.push('/login');
+      },
+    });
+  
+  
+    if (status === "loading") {
+      return <Loading />;
+    }
+  
+    const firstName = session.user?.name?.trim().split(/\s+/)[0] || 'User';
+    const role = session.user?.role;
+  
+  
+
+
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [category, setCategory] = useState("")
@@ -13,7 +35,6 @@ export default function CreateCoursePage() {
   const [error, setError] = useState("")
   const [text, setText] = useState("Create Course")
 
-  const router = useRouter()
 
   const handleCreateCourse = async () => {
     setError("")
@@ -28,7 +49,7 @@ export default function CreateCoursePage() {
     }
 
     try {
-      const res = await fetch("/api/courses", {
+      const res = await fetch("/api/courses/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +75,7 @@ export default function CreateCoursePage() {
 
 
       // Redirect to edit course page
-      router.push(`/editCourse/${courseId}`)
+      router.push(`/educators/editCourse/${courseId}`)
     } catch (err: any) {
       console.error(err)
       setError(err.message)

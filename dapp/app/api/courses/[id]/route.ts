@@ -41,11 +41,11 @@ interface QuizDoc {
 }
 
 
-export async function GET(
-  req: NextRequest,
-  { params } // Let Next.js/TypeScript infer the types from the file path
+export async function  GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id }: { id: string } = params; 
+  const { id } = await params
   try {
     await connectDB()
 

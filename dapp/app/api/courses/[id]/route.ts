@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { connectDB } from '@/lib/mongodb'
 import Course from '@/models/course/Course'
 import Lesson from '@/models/course/Lesson'
@@ -42,11 +42,10 @@ interface QuizDoc {
 
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  { params } // Let Next.js/TypeScript infer the types from the file path
 ) {
-  const { id } = params;
-
+  const { id }: { id: string } = params; 
   try {
     await connectDB()
 

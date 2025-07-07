@@ -135,26 +135,49 @@ const VerifyPage = () => {
             </div>
 
             {/* ... Hidden Element for PDF Generation ... */}
-            <div id={`download-cert-${certificate._id}`} className="hidden">
-              <div className="relative p-10 w-[11in] h-[8.5in] bg-white text-center flex flex-col justify-center items-center">
-                <Image src="/logo.svg" alt="Logo" width={80} height={80} className="absolute top-8 left-8" />
-                <h2 className="text-5xl font-extrabold text-blue-800 mb-4 tracking-tight">Certificate of Completion</h2>
-                <hr className="border-t-2 border-blue-500 my-6 w-2/3 mx-auto" />
-                <p className="text-lg text-gray-700">This is proudly presented to</p>
-                <p className="text-4xl font-bold text-gray-900 my-4">{certificate.userName}</p>
-                <p className="text-lg text-gray-700">for successfully completing the course:</p>
-                <p className="text-2xl font-semibold text-gray-800 my-2">{certificate.courseTitle}</p>
-                <p className="text-sm text-gray-600 mt-6">Issued on: {new Date(certificate.issuedAt).toLocaleDateString()}</p>
-                {certificate.txHash && (
-                  <div className="mt-6 text-xs text-gray-700">
-                    TX Hash: <span className="break-all font-mono">{certificate.txHash}</span>
-                  </div>
-                )}
-                <div className="flex justify-between items-center absolute bottom-6 left-10 right-10 text-xs text-gray-600">
-                  <span>Powered by <span className="font-bold text-blue-600">ProofLearn</span></span>
-                  <span className="italic">Signature</span>
-                </div>
-              </div>
+            <div className='absolute left-[1000%] hidden'>
+              <div
+                                    id={`download-cert-${certificate._id}`} 
+                                    className="bg-opacity-20 bg-cover bg-center relative mx-auto bg-[#fefefe] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] w-[800px] h-[600px] font-serif text-center   px-10 py-12 overflow-hidden"
+                                  >
+                                    <div className="absolute inset-0 bg-[url('/watermark.png')] bg-cover bg-center opacity-20 z-0" />
+                            
+                                    {/* Certificate Content */}
+                                    <div className="relative z-10 gap-2 flex-col flex">
+                                      <div className='flex gap-2'>
+                                      <Image src="/logo.svg" alt="Logo" width={40} height={40} className="" />
+                            
+                                      <h2 className="text-5xl font-extrabold text-blue-800 mb-4 tracking-tight">
+                                        Certificate of Completion
+                                      </h2>
+                                      </div>
+                            
+                                      <hr className="border-t-2 border-blue-500 my-6 w-2/3 mx-auto" />
+                            
+                                      <p className="text-lg text-gray-700">This is proudly presented to</p>
+                                      <p className="text-4xl font-bold text-gray-900 my-4">{certificate.userName}</p>
+                            
+                                      <p className="text-lg text-gray-700">for successfully completing the course:</p>
+                                      <p className="text-2xl font-semibold text-gray-800 my-2">{certificate.courseTitle}</p>
+                            
+                                      <p className="text-sm text-gray-600 mt-6">
+                                        Issued on: {new Date(certificate.issuedAt).toLocaleDateString()}
+                                      </p>
+                                      <div className="mt-6 text-sm text-gray-700">
+                                          PL Hash: <span className="break-all font-mono">{certificate._id}</span>
+                                        </div>
+                                      {certificate.txHash && (
+                                        <div className="mt-6 text-sm text-gray-700">
+                                          TX Hash: <span className="break-all font-mono">{certificate.txHash}</span>
+                                        </div>
+                                      )}
+                            
+                                      <div className="flex justify-between items-center absolute bottom-6 left-10 right-10 text-xs text-gray-600">
+                                        <span>Powered by <span className="font-bold text-blue-600">ProofLearn</span></span>
+                                        <span className="italic">Signature</span>
+                                      </div>
+                                    </div>
+                                  </div>
             </div>
           </div>
         ) : (

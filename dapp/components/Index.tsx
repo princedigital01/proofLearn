@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header"
 import Link from "next/link";
-import { CertificateSearchBar } from "./SearchBar";
+import { CertificateSearchBar } from "./CertificateSearch";
 
 const Index = () => {
   return (

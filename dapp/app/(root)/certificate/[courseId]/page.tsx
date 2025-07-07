@@ -72,7 +72,9 @@ export default function CertificatePage() {
           <p className="text-sm text-gray-600 mt-6">
             Issued on: {new Date(certificate.issuedAt).toLocaleDateString()}
           </p>
-
+          <div className="mt-6 text-sm text-gray-700">
+              PL Hash: <span className="break-all font-mono">{certificate._id}</span>
+            </div>
           {certificate.txHash && (
             <div className="mt-6 text-sm text-gray-700">
               TX Hash: <span className="break-all font-mono">{certificate.txHash}</span>

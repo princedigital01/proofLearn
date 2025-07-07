@@ -44,7 +44,7 @@ export const CertificateGallery = () => {
 
   const handleShare = async (cert: any) => {
     try {
-      const shareText = `🎓 I just earned my "${cert.title}" certificate in "${cert.courseTitle}"!\n\nVerified on Cardano: https://cardanoscan.io/transaction/${cert.txHash}`
+      const shareText = `🎓 I just earned my "${""}" certificate in "${cert.courseTitle}"!\n\nVerified on Cardano: https://cardanoscan.io/transaction/${cert.txHash} \n\n verification id \n\n${cert._id} `
       await navigator.clipboard.writeText(shareText)
       alert("Certificate info copied to clipboard!")
     } catch (err) {
@@ -158,7 +158,9 @@ export const CertificateGallery = () => {
                         <p className="text-sm text-gray-600 mt-6">
                           Issued on: {new Date(cert.issuedAt).toLocaleDateString()}
                         </p>
-              
+                        <div className="mt-6 text-sm text-gray-700">
+                            PL Hash: <span className="break-all font-mono">{cert._id}</span>
+                          </div>
                         {cert.txHash && (
                           <div className="mt-6 text-sm text-gray-700">
                             TX Hash: <span className="break-all font-mono">{cert.txHash}</span>

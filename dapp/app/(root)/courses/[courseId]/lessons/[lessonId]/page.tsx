@@ -43,11 +43,6 @@ interface IEnrollment {
   completedLessons: Types.ObjectId[];
 }
 
-interface IQuiz {
-  _id: Types.ObjectId;
-  lessonId: Types.ObjectId;
-  questions: any[]; // Define a proper IQuestion type if you can
-}
 
 interface IQuizAttempt {
   _id: Types.ObjectId;
@@ -56,6 +51,27 @@ interface IQuizAttempt {
   score: number;
   passed: boolean;
   completedAt: Date;
+}
+
+interface IQuestion {
+  _id: Types.ObjectId;
+  quizId: Types.ObjectId;
+  type: 'multiple-choice' | 'true-false' | 'fill-in-the-blank';
+  text: string;
+  options?: string[]; // Optional for non-MCQ questions
+  correctAnswer: any; // `any` is suitable for Mongoose's `Mixed` type
+  explanation?: string;
+  order: number;
+}
+
+// UPDATED: The IQuiz interface now knows what a populated question looks like
+interface IQuiz {
+  _id: Types.ObjectId;
+  lessonId: Types.ObjectId;
+  title: string;
+  questions: IQuestion[]; // Assuming IQuestion is also defined
+  passingScore: number;
+  timeLimit?: number; // Optional if it might not exist
 }
 
 

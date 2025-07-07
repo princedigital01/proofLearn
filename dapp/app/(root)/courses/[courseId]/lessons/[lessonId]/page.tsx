@@ -60,12 +60,12 @@ interface IQuizAttempt {
 
 
 type Props = { 
-  params: { courseId: string; lessonId: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  params: Promise<{ courseId: string; lessonId: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export default async function LessonPage({ params }: Props) { 
-  const { courseId, lessonId } = params;
+  const { courseId, lessonId } = await params;
 
   await connectDB();
 

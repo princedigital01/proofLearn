@@ -41,7 +41,7 @@ export async function GET(req: NextRequest,  { params }: {params: Promise<{ id: 
 }
 
 // PUT method - Enroll or update progress using session email
-export async function PUT(req: NextRequest, context: { params: { id: string } }) {
+export async function PUT(req: NextRequest,  { params }: {params: Promise<{ id: string }>} ) {
   try {
     await connectDB()
 
@@ -55,7 +55,8 @@ export async function PUT(req: NextRequest, context: { params: { id: string } })
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    const courseId = context.params.id
+    const {id} = await params
+    const courseId=id;
     const { progress, currentLessonId, completed } = await req.json()
 
     const updateData: any = {}

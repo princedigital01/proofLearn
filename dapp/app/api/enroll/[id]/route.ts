@@ -7,7 +7,7 @@ import User from '@/models/user/User'
 import { Types } from 'mongoose'
 
 // GET method - Get enrollment using session email
-export async function GET(req: NextRequest, context: { params: { id: string } }) {
+export async function GET(req: NextRequest,  { params }: {params: Promise<{ id: string }>} ) {
   try {
     await connectDB()
 
@@ -21,7 +21,8 @@ export async function GET(req: NextRequest, context: { params: { id: string } })
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    const courseId = context.params.id
+    const {id} = await params
+    const courseId=id;
 
     const enrollment = await Enrollment.findOne({
       courseId: new Types.ObjectId(courseId),

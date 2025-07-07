@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,7 @@ import Header from "./Header";
 import Loading from "@/app/loading";
 import EnrolledCourses from "./user/EnrolledCourses";
 import AvaliableCourses from "./user/avaliableCourses";
+import { usePathname } from 'next/navigation'
 
 const Dashboard = () => {
   const router = useRouter();
@@ -29,23 +30,21 @@ const Dashboard = () => {
     },
   });
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const pathname = usePathname() // gets the current route
+const defaultTab = useMemo(() => {
+    if (pathname === '/courses') return 'browse'
+    if (pathname === '/certificate') return 'certificates'
+    return 'my-courses'
+  }, [pathname])
 
-
-  const availableCourses = [
-    { id: 3, title: "Building DApps with Mesh.js", instructor: "Carol Davis", price: 500, rating: 4.8, students: 234, duration: "8 hours", level: "Intermediate", image: "/placeholder.svg?height=200&width=300" },
-    { id: 4, title: "Cardano Native Tokens", instructor: "David Wilson", price: 300, rating: 4.9, students: 156, duration: "6 hours", level: "Beginner", image: "/placeholder.svg?height=200&width=300" }
-  ];
-
-  if (status === "loading") {
-    return <Loading />;
-  }
+  if (status === "loading") { return <Loading />; }
 
   const firstName = session.user?.name?.trim().split(/\s+/)[0] || 'User';
   const role = session.user?.role;
+
+  
   return (
-    <div className="max-w-full min-h-screen bg-gray-50">
+    <div className="max-w-full min-h-screen bg-gray-50 overflow-x-hidden">
       <Header title={`Welcome ${firstName.toUpperCase()}`}>
         <div className="mr-3 flex flex-col lg:flex-row items-center gap-2 ">
           <TokenBalance />
@@ -56,7 +55,7 @@ const Dashboard = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-12 gap-8">
           <div className="lg:col-span-9">
-            <Tabs defaultValue="my-courses" className="space-y-6">
+            <Tabs defaultValue={defaultTab} className="space-y-6">
               <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="my-courses">My Courses</TabsTrigger>
                 <TabsTrigger value="browse">Browse</TabsTrigger>

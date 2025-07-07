@@ -8,7 +8,8 @@ export async function GET() {
   try {
     await connectDB()
 
-    const courses = await Course.find().sort({ createdAt: -1 }).lean()
+    const courses = await Course.find({ status: 'published' }).sort({ createdAt: -1 }).lean()
+
 
     // Helper to get educator name
     const getName = async (createdBy: string | Types.ObjectId): Promise<string> => {

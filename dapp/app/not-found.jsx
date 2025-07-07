@@ -8,7 +8,7 @@ const notfound = () => {
       <Image src="/logo.svg" width={200} height={200} alt="404" />
       <h2 className="text-3xl bold text-c-primary">Not Found</h2>
       <p>Could not find requested resource</p>
-      <Link className="text-c-red" href="/">Return Home</Link>
+      <Link className="text-c-red" href="/dashboard">Return Home</Link>
     </div>
   )
 }

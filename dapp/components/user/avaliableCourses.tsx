@@ -52,6 +52,10 @@ const AvailableCourses = () => {
 
   return (
     <>
+    {loading ? (
+          <p>Loading courses...</p>
+        ) : (
+          <>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -74,14 +78,14 @@ const AvailableCourses = () => {
         ))}
       </div>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {loading ? (
-          <p>Loading courses...</p>
-        ) : (
-          availableCourses.map((course) => (
+        
+          {availableCourses.map((course) => (
               <CourseCard key={course.id} course={course} />
-            ))
-        )}
+            ))}
+        
       </div>
+      </>
+      )}
     </>
   );
 };

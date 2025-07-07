@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header"
 import Link from "next/link";
+import { CertificateSearchBar } from "./SearchBar";
 
 const Index = () => {
   return (
@@ -33,6 +34,11 @@ const Index = () => {
               <Link href="/educators">Start Teaching</Link>
             </Button>
           </div>
+        </div>
+        <div className=" justify-center text-center  gap-4 mt-20">
+         <Button size="lg"  className="no-flextext-lg px-12 py-3 bg-[#189cbd]" asChild>
+              <Link href="/verify">verify a certificate</Link>
+            </Button>
         </div>
       </section>
 
@@ -187,7 +193,7 @@ const Index = () => {
             </div>
           </div>
           <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Learn on Cardano. Powered by the Cardano blockchain.</p>
+            <p>&copy; 2025 Learn on Cardano. Powered by the Cardano blockchain.</p>
           </div>
         </div>
       </footer>

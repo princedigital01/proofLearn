@@ -59,12 +59,12 @@ interface IQuizAttempt {
 }
 
 
-type PageProps = {
+type Props = { 
   params: { courseId: string; lessonId: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export default async function LessonPage({ params }: PageProps) {
+export default async function LessonPage({ params }: Props) { 
   const { courseId, lessonId } = params;
 
   await connectDB();

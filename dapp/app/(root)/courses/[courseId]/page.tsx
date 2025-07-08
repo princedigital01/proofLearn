@@ -47,9 +47,12 @@ import { Metadata } from 'next'
 // import Course from '@/models/course/Course'
 // import { connectDB } from '@/lib/mongodb'
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  await connectDB()
-  const course = await Course.findById(params.id).lean<ICourse>()
+export async function generateMetadata({ params }: CoursePageProps): Promise<Metadata> {
+  const { courseId } = await params;
+
+  await connectDB();
+
+  const course = await Course.findById(courseId).lean<ICourse>()
 
   if (!course) return {}
 
@@ -59,7 +62,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     openGraph: {
       title: course.title,
       description: course.description,
-      url: `https://proof-learn-e.vercel.app/courses/${params.id}`,
+      url: `https://proof-learn-e.vercel.app/courses/${courseId}`,
       type: 'website',
     }
   }

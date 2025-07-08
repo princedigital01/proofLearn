@@ -2,10 +2,13 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { useParams } from 'next/navigation'
-import html2canvas from 'html2canvas'
-import jsPDF from 'jspdf'
+// No longer needed: import html2canvas from 'html2canvas'
+// No longer needed: import jsPDF from 'jspdf'
 import Image from 'next/image'
 import Link from 'next/link'
+
+// Note: Ensure you have your type declaration file in place to avoid TS errors
+// e.g., /types/html2pdf.d.ts containing `declare module 'html2pdf.js';`
 
 export default function CertificatePage() {
   const { courseId } = useParams()
@@ -29,14 +32,35 @@ export default function CertificatePage() {
     if (courseId) fetchCertificate()
   }, [courseId])
 
+  // --- REFACTORED DOWNLOAD HANDLER ---
   const handleDownload = async () => {
-    if (!certRef.current) return
-    const canvas = await html2canvas(certRef.current)
-    const imgData = canvas.toDataURL('image/png')
-    const pdf = new jsPDF('landscape', 'px', [canvas.width, canvas.height])
-    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height)
-    pdf.save(`certificate-${courseId}.pdf`)
+    const element = certRef.current
+    if (!element) return
+
+    // Dynamically import the library only when the function is called
+    const html2pdf = (await import('html2pdf.js')).default
+
+    const opt = {
+      margin: 0,
+      filename: `certificate-${courseId}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      // This is the key for high-quality output
+      html2canvas: {
+        scale: 2, // Renders the canvas at a higher resolution
+        useCORS: true, // Important for loading external images if you have any
+      },
+      // This ensures the PDF page size is set to the exact dimensions of your element
+      jsPDF: {
+        unit: 'px',
+        format: [element.offsetWidth, element.offsetHeight],
+        orientation: 'landscape',
+      },
+    }
+
+    // Create the PDF from the element with the specified options
+    html2pdf().from(element).set(opt).save()
   }
+  // --- END OF REFACTORED CODE ---
 
   if (loading) return <div className="p-6 text-center">Loading...</div>
   if (!certificate) return <div className="p-6 text-center text-red-600">Certificate not found</div>
@@ -45,6 +69,7 @@ export default function CertificatePage() {
     <div className="max-w-5xl mx-auto p-6 text-center">
       <h1 className="text-4xl font-extrabold mb-6">🎓 Certificate of Completion</h1>
 
+      {/* The certificate element remains exactly the same */}
       <div
         ref={certRef}
         className="bg-opacity-20 bg-cover bg-center relative mx-auto bg-[#fefefe] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] w-[800px] h-[600px] font-serif text-center   px-10 py-12 overflow-hidden"
@@ -53,12 +78,12 @@ export default function CertificatePage() {
 
         {/* Certificate Content */}
         <div className="relative z-10 gap-2 flex-col flex">
-          <div className='flex gap-2'>
-          <Image src="/logo.svg" alt="Logo" width={40} height={40} className="" />
+          <div className="flex gap-2">
+            <Image src="/logo.svg" alt="Logo" width={40} height={40} className="" />
 
-          <h2 className="text-5xl font-extrabold text-blue-800 mb-4 tracking-tight">
-            Certificate of Completion
-          </h2>
+            <h2 className="text-5xl font-extrabold text-blue-800 mb-4 tracking-tight">
+              Certificate of Completion
+            </h2>
           </div>
 
           <hr className="border-t-2 border-blue-500 my-6 w-2/3 mx-auto" />
@@ -73,8 +98,8 @@ export default function CertificatePage() {
             Issued on: {new Date(certificate.issuedAt).toLocaleDateString()}
           </p>
           <div className="mt-6 text-sm text-gray-700">
-              PL Hash: <span className="break-all font-mono">{certificate._id}</span>
-            </div>
+            PL Hash: <span className="break-all font-mono">{certificate._id}</span>
+          </div>
           {certificate.txHash && (
             <div className="mt-6 text-sm text-gray-700">
               TX Hash: <span className="break-all font-mono">{certificate.txHash}</span>
@@ -82,12 +107,13 @@ export default function CertificatePage() {
           )}
 
           <div className="flex justify-between items-center absolute bottom-6 left-10 right-10 text-xs text-gray-600">
-            <span>Powered by <span className="font-bold text-blue-600">ProofLearn</span></span>
+            <span>
+              Powered by <span className="font-bold text-blue-600">ProofLearn</span>
+            </span>
             <span className="italic">Signature</span>
           </div>
         </div>
       </div>
-
 
       <button
         onClick={handleDownload}
@@ -96,7 +122,7 @@ export default function CertificatePage() {
         Download as PDF
       </button>
       <Link
-        href={"/certificate"}
+        href={'/certificate'}
         className="mt-6 text-blue-600 border border-blue-600 bg-white mx-5 px-6 py-2 rounded hover:bg-blue-700 hover:text-white"
       >
         Return to dashboard
@@ -110,6 +136,7 @@ export default function CertificatePage() {
               href={`https://cardanoscan.io/transaction/${certificate.txHash}`}
               className="text-blue-600 underline"
               target="_blank"
+              rel="noopener noreferrer"
             >
               {certificate.txHash}
             </a>

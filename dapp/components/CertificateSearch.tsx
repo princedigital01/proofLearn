@@ -23,7 +23,7 @@ export const CertificateSearch = () => {
     <form onSubmit={handleSearch} className="flex w-full max-w-sm items-center space-x-2">
       <Input
         type="text"
-        placeholder="Enter Certificate ID..."
+        placeholder="Verify Certificate ID..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className="flex-grow"

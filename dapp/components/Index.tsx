@@ -3,9 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { BookOpen, Shield, Award, Users, Coins, Vote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import Header from "@/components/Header"
 import Link from "next/link";
-import { CertificateSearchBar } from "./CertificateSearch";
 
 const Index = () => {
   return (
@@ -151,52 +149,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12 px-4">
-        <div className="container mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <BookOpen className="h-6 w-6" />
-                <span className="text-xl font-bold">Learn on Cardano</span>
-              </div>
-              <p className="text-gray-400">
-                Decentralized education for a better future
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Platform</h3>
-              <div className="space-y-2 text-gray-400">
-                <div>Courses</div>
-                <div>Educators</div>
-                <div>Governance</div>
-                <div>Staking</div>
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Resources</h3>
-              <div className="space-y-2 text-gray-400">
-                <div>Documentation</div>
-                <div>API</div>
-                <div>Support</div>
-                <div>Community</div>
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Connect</h3>
-              <div className="space-y-2 text-gray-400">
-                <div>Discord</div>
-                <div>Twitter</div>
-                <div>GitHub</div>
-                <div>Blog</div>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Learn on Cardano. Powered by the Cardano blockchain.</p>
-          </div>
-        </div>
-      </footer>
+     
     </div>
   );
 };

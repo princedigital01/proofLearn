@@ -24,15 +24,10 @@ interface CertificateData {
   userId: string;
 }
 
-interface Username{
-  name:string;
-}
-
 const VerifyPage = () => {
   const [certificate, setCertificate] = useState<CertificateData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [name, setName] = useState<Username | null>(null)
   const searchParams = useSearchParams();
   const query = searchParams.get('q')?.trim() || '';
 
@@ -49,25 +44,23 @@ const VerifyPage = () => {
       setCertificate(null);
 
       try {
+        
+        
         const res = await fetch(`/api/certificate/verify/${query}`);
-
-        const res2 = await fetch(`/api/user/${query}`);
         
         if (!res.ok) {
           const errorData = await res.json();
-          throw new Error(errorData.message || 'Certificate not found.');
-        }
-        if (!res.ok) {
-          const errorData = await res.json();
-          throw new Error(errorData.message || 'Certificate not found.');
+          setError(errorData.message || 'Certificate not found.');
         }
         const data = await res.json();
-        const data2 = await res2.json();
-        setName(data2);
         setCertificate(data.certificate || null);
+                
+        
       } catch (err: any) {
+
         console.error('Failed to fetch certificate', err);
         setError(err.message || 'An unexpected error occurred.');
+      
       } finally {
         setLoading(false);
       }
@@ -131,7 +124,7 @@ const VerifyPage = () => {
               <h3 className="text-lg font-semibold">{certificate.title}</h3>
               <p className="text-sm text-gray-500">{certificate.courseTitle}</p>
               <div className="text-sm text-gray-600">Issued on: {new Date(certificate.issuedAt).toLocaleDateString()}</div>
-              <div className="text-sm text-gray-600">Owner: {name?.name || 'N/A'}</div>
+              <div className="text-sm text-gray-600">Owner: {certificate.userName}</div>
               <div className="text-xs font-mono bg-gray-100 p-2 rounded break-all">{certificate.txHash}</div>
               <div className="flex gap-2 pt-2">
                 <Button variant="outline" size="sm" className="flex-1" onClick={handleDownload}>
@@ -169,7 +162,7 @@ const VerifyPage = () => {
                                       <hr className="border-t-2 border-blue-500 my-6 w-2/3 mx-auto" />
                             
                                       <p className="text-lg text-gray-700">This is proudly presented to</p>
-                                      <p className="text-4xl font-bold text-gray-900 my-4">{name?.name}</p>
+                                      <p className="text-4xl font-bold text-gray-900 my-4">{certificate.userName}</p>
                             
                                       <p className="text-lg text-gray-700">for successfully completing the course:</p>
                                       <p className="text-2xl font-semibold text-gray-800 my-2">{certificate.courseTitle}</p>

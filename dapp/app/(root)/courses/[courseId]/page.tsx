@@ -43,6 +43,28 @@ type CoursePageProps = {
   params: Promise<{ courseId: string }>;
 };
 
+import { Metadata } from 'next'
+// import Course from '@/models/course/Course'
+// import { connectDB } from '@/lib/mongodb'
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  await connectDB()
+  const course = await Course.findById(params.id).lean<ICourse>()
+
+  if (!course) return {}
+
+  return {
+    title: `${course.title} | ProofLearn`,
+    description: course.description || 'Explore this course on ProofLearn.',
+    openGraph: {
+      title: course.title,
+      description: course.description,
+      url: `https://proof-learn-e.vercel.app/courses/${params.id}`,
+      type: 'website',
+    }
+  }
+}
+
 export default async function CoursePage({ params }: CoursePageProps) {
   await connectDB();
 const{courseId} = await params

@@ -31,5 +31,11 @@ export const navLinks = [
     href: '/staking',
     title: 'Stake',
   },
+  {
+    id: 5,
+    for: 'general',
+    href: '/verify',
+    title: 'verify',
+  },
 ];
 

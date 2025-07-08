@@ -6,12 +6,12 @@ import Certificate from '@/models/enroll/Certificate';
 // This function handles GET requests to /api/certificate/verify/[id]
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
 
-    const { id: identifier } = params; // Rename 'id' to 'identifier' for clarity
+    const { id: identifier } = await params; // Rename 'id' to 'identifier' for clarity
 
     if (!identifier) {
       return NextResponse.json({ message: 'Certificate identifier is required' }, { status: 400 });
@@ -36,6 +36,7 @@ export async function GET(
     if (!certificate) {
       return NextResponse.json({ message: 'Certificate not found' }, { status: 404 });
     }
+     
     
     // The frontend expects the data inside a 'certificate' key
     return NextResponse.json({ certificate }, { status: 200 });

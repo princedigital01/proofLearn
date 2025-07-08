@@ -18,9 +18,9 @@ import {
   Award,
   Coins
 } from "lucide-react";
-import Header from "./Header";
+import Header from "@/components/Header";
 import Link from "next/link";
-import MyCourses from "./educators/mycourses";
+import MyCourses from "@/components/educators/mycourses";
 
 const EducatorDashboard = ({name=""}) => {
   const [courses, setCourse] = useState([
@@ -147,17 +147,10 @@ const EducatorDashboard = ({name=""}) => {
 
           {/* Courses Tab */}
           <TabsContent value="courses" className="space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Course Management</h2>
-              <Link href="/educators/createcourse">
-              <Button className="flex items-center gap-2">
-                <Plus className="h-4 w-4" />
-                Create New Course
-              </Button>
-              </Link>
-            </div>
+            
 
             <MyCourses/>
+
             </TabsContent>
 
           {/* Analytics Tab */}

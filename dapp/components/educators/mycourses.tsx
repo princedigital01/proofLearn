@@ -33,6 +33,8 @@ export default function MyCourses() {
 
   useEffect(() => {
     const fetchCourses = async () => {
+      
+    setLoading(true)
       try {
         const res = await fetch("/api/courses/my")
         const data = await res.json()
@@ -40,6 +42,7 @@ export default function MyCourses() {
         setCourses(data)
       } catch (err: any) {
         setError(err.message)
+    setLoading(false)
       } finally {
         setLoading(false)
       }
@@ -49,11 +52,22 @@ export default function MyCourses() {
   }, [status])
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <>
+    <div className="flex justify-between items-center">
+                  <h2 className="text-2xl font-bold">Course Management</h2>
+                  <Link href="/educators/createcourse">
+                  <Button className="flex items-center gap-2">
+                    <Plus className="h-4 w-4" />
+                    Create New Course
+                  </Button>
+                  </Link>
+                </div>
+                
+    <div className=" mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">My Courses</h1>
       {error && <p className="text-red-600">{error}</p>}
       {courses.length === 0 ? (
-        <p>No courses found.</p>
+        <p>{loading ? "loading...":"No courses found."}</p>
       ) : (
         <div className="space-y-4">
           
@@ -77,11 +91,11 @@ export default function MyCourses() {
                         <div className="flex items-center gap-6 text-sm text-gray-600">
                           <div className="flex items-center gap-1">
                             <Users className="h-4 w-4" />
-                            {course.students||"12"} students
+                            {course.students||course.status === 'published' ? "12":"0"} students
                           </div>
                           <div className="flex items-center gap-1">
                             <DollarSign className="h-4 w-4" />
-                            ${course.revenue ||"1500"} revenue
+                            ${course.revenue ||course.status === 'published' ? "1500":"0"} revenue
                           </div>
                           {course.rating > 0 ? (
                             <div className="flex items-center gap-1">
@@ -124,6 +138,8 @@ export default function MyCourses() {
             </div>
         </div>
       )}
+
     </div>
+    </>
   )
 }

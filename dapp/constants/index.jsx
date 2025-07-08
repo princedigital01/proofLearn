@@ -1,3 +1,4 @@
+import { Github, Twitter, MessageSquare, Newspaper } from "lucide-react"
 export const navLinks = [
   
   {

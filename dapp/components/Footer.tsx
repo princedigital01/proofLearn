@@ -1,5 +1,6 @@
-import { BookOpen, MessageSquare, Newspaper } from "lucide-react"
+
 import { platformLinks, connectLinks,resourceLinks } from "@/constants"
+import { BookOpen} from "lucide-react"
 import Link from "next/link"
 
 

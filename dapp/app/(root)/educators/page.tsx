@@ -1,5 +1,5 @@
 "use client"
-import EducatorDashboard from '@/components/EducatorDashboard'
+import EducatorDashboard from '@/components/educators/EducatorDashboard'
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';

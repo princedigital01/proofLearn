@@ -8,18 +8,50 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Wallet, ChevronDown, Copy, ExternalLink } from "lucide-react";
+} from "@/components/ui/dropdown-menu"; 
+import { BrowserWallet } from '@meshsdk/core';
+
+
+import { Wallet, ChevronDown, Copy, ExternalLink } from "lucide-react"; 
+
 
 export const WalletConnection = () => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [walletAddress] = useState("addr1q9x7...8k2m");
-  const [balance] = useState({ ada: 1250.50, learn: 2450 });
+  const [isConnected, setIsConnected] = useState(false); 
+  const [selectedWalletIndex, setSelectedWalletIndex] = useState()
+  const [walletAddress, setWalletAddress] = useState("");
+  const [balance,setBalance] = useState({ ada: "", learn: " " });
 
-  const handleConnect = () => {
-    // In real implementation, this would integrate with Cardano wallets
-    setIsConnected(true);
-  };
+  const handleConnect = async () => {
+    // In real implementation, this would integrate with Cardano wallets  
+    const wallets = await BrowserWallet.getInstalledWallets(); 
+    console.log(wallets);  
+    if(wallets.length > 0) { 
+    
+     
+    const wallet = await BrowserWallet.enable('')  
+     
+   
+     
+    const adaBalance = await wallet.getLovelace()  
+
+    setBalance(prevBalance => ({
+      ...prevBalance,
+      ada: adaBalance,
+    }));
+     
+    
+} 
+else{ 
+  alert('Please Install a cardono wallet')
+}
+    }
+     
+    
+     
+    
+     
+    
+   
 
   const handleDisconnect = () => {
     setIsConnected(false);

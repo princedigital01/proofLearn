@@ -15,7 +15,7 @@ const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   useEffect(() => {
-    const oauthError = searchParams.get("error")
+    const oauthError = searchParams.get("error");
     if (oauthError) {
       let message = ""
       switch (oauthError) {

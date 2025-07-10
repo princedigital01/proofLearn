@@ -1,0 +1,20 @@
+{
+  "name": "prooflearn",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/princedigital01/proofLearn#readme",
+  "bugs": {
+    "url": "https://github.com/princedigital01/proofLearn/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/princedigital01/proofLearn.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm"
+  }
+}

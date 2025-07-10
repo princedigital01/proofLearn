@@ -1,13 +1,13 @@
-name = "web/contract"
-version = "1.0.0"
+name = "learn/prooflearn"
+version = "0.0.0"
 compiler = "v1.1.17"
 plutus = "v3"
 license = "Apache-2.0"
-description = "Aiken contracts for project 'web/contract'"
+description = "Aiken contracts for project 'learn/prooflearn'"
 
 [repository]
-user = "web"
-project = "contract"
+user = "learn"
+project = "prooflearn"
 platform = "github"
 
 [[dependencies]]

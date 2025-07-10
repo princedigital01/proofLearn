@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
 
-const MONGODB_URL = process.env.MONGODB_URI
+const MONGODB_URL = process.env.MONGODB_URI as string
+
+
 
 if (!MONGODB_URL) throw new Error("Database connection string missing (MONGO_CONN_STR)")
 

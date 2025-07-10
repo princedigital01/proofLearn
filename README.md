@@ -33,8 +33,7 @@ A platform to make school feel less like punishment and more like learning — t
 ### 🚧 In Progress
 - ⚡ Smart Summary (AI-assisted studying)
 - 🪙 Token rewards system (LEARN token)
-- 🎖 NFT Certificate minting (Cardano testnet)
-- 💼 Wallet login & smart contract integration
+- 💰 Escrow Payment Contract(planned)
 
 ---
 
@@ -45,7 +44,7 @@ A platform to make school feel less like punishment and more like learning — t
 | Frontend    | Next.js (App Router), Tailwind CSS |
 | Backend     | Node.js, MongoDB (Mongoose), REST |
 | Auth        | NextAuth.js                      |
-| Web3 Ready  | Aiken (Planned), Mesh.js, Lucid  |
+| Web3 Ready  | Aiken(planned), Meshsdk.js, Lucid  |
 | Storage     | IPFS (Planned)                   |
 
 ---
@@ -65,15 +64,21 @@ npm install.
 ### 3. Create .env File.
 .env
 
-MONGODB_URI=mongodb+srv://<your-uri>
+MONGO_CONN_STR=mongodb+srv://igberaeseedward2005:tfXvG6d2SKVR37mr@cluster.cqpg61y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster
 
-NEXTAUTH_SECRET=your-secret
+GOOGLE_CLIENT_ID=887047876662-ank6uvcjb3jgh97bbp5uuqf4b4g416qa.apps.googleusercontent.com
 
-NEXTAUTH_SECRET=your-secret
+GOOGLE_CLIENT_SECRET=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
 
-GITHUB_SECRET=your-secret
+GITHUB_CLIENT_ID=Ov23liSmAaVzBQNGbDEy
 
-GOOGLE_SECRET=your-secret
+GITHUB_CLIENT_SECRET=1dceab39d95e2a57d9320e586f2eb6f63f3452a1
+
+NEXTAUTH_URL=http://localhost:3000
+
+NEXTAUTH_SECRET=oW6uZrSk8F5sUECmQlfqjCcbjD3PfsPv3LZekgphZ4
+
+BCRYPT_SALT=10
 
 
 ### 4. Run Locally
@@ -100,8 +105,8 @@ dapp/
 | ├── lib/             |  # DB connection & helper utils              |
 | ├── public/          |  # Static assets                             |
 | └── utils/           |  # Wallet utils & contract interaction       |
-
-### 5 🌐 Blockchain Modules (Planned)
+ 
+### 5 🌐 Blockchain Modules (plannned)
 
 - 🎖 Credential NFT System
 - Mints on course completion
@@ -113,6 +118,48 @@ Written in Aiken
 
 #### Modules: Enrollment validator, Certificate NFT, Escrow logic
 
+All smart contracts will be written using **Aiken**, a modern and efficient smart contract language built for Cardano.
+
+These contracts will power the core blockchain features of the ProofLearn platform.
+
+---
+
+##### 🧾 1. Enrollment Validator(planned)
+
+> 🔐 Ensures students are eligible before gaining course access.
+
+- Verifies the student has paid the required course fee (in ADA or LEARN token)
+- Validates the enrollment transaction on-chain
+- Triggers course access in the backend after on-chain success
+- Prevents double enrollments or replay attacks
+
+---
+
+##### 🎖 2. Certificate NFT Validator(planned)
+
+> 🎓 Mints tamper-proof, globally verifiable certificates.
+
+- Mints a unique **NFT credential** after a student completes a course
+- Uses the **CIP-68 standard** for updatable NFT metadata
+- Certificate metadata includes:
+  - Course title
+  - Completion score
+  - Student wallet address
+  - Timestamp
+- Proof of learning that lives on-chain, forever
+
+---
+
+##### 💰 3. Escrow Logic Contract(planned)
+
+> 🏦 Trustless payment between students and educators.
+
+- Holds course payment in escrow at the time of enrollment
+- Automatically releases funds to the educator on course completion
+- Refund logic included (e.g. incomplete course or failed access)
+- Adds trust and transparency without platform interference
+
+
 #### 🔐 Wallet Support
 Nami, Eternl, Yoroi (via Mesh.js)
 
@@ -122,7 +169,7 @@ Nami, Eternl, Yoroi (via Mesh.js)
 ## 👥 Team
 | Name	            |Role                 |
 |-------------------|---------------------|
-| Edward Igberaese  |Fullstack            |
+| Edward            |Fullstack            |
 | Kennedy 	        |Blockchain Developer |
 
 

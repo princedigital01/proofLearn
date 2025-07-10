@@ -28,7 +28,10 @@ export const WalletConnection = () => {
     if(wallets.length > 0) { 
     
      
-    const wallet = await BrowserWallet.enable('')  
+    const wallet = await BrowserWallet.enable('')   
+
+    const usedAddr = await wallet.getChangeAddress() 
+    setWalletAddress(usedAddr)
      
    
      

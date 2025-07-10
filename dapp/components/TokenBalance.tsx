@@ -1,7 +1,8 @@
 'use client';
 
 import { Badge } from "@/components/ui/badge";
-import { Coins, TrendingUp } from "lucide-react";
+import { Coins, TrendingUp } from "lucide-react"; 
+import { MintNativeToken } from "./MintNativeToken";
 
 export const TokenBalance = () => {
   return (
@@ -13,7 +14,8 @@ export const TokenBalance = () => {
           <TrendingUp className="h-3 w-3 mr-1" />
           +95
         </Badge>
-      </div>
+      </div> 
+      <div><MintNativeToken/></div>
     </div>
   );
 };

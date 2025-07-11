@@ -110,7 +110,7 @@ Nami, Eternl, Yoroi (via Mesh.js)
 NFT storage + payments
 
 
-### 👥 Team
+## 👥 Team
 Name	            Role
 Edward Igberaese	Fullstack 
 Kennedy 	        Blockchain Developer

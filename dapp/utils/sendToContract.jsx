@@ -12,8 +12,9 @@ import {
 
 // 🟦 Send ADA to a Plutus smart contract
 async function sendToContract(walletName) {
+  
   const res = await fetch('/pluto.json'); // public/pluto.json
-const json = await res.json();
+  const json = await res.json();
 
 const compiledCode = json.validators[0].compiledCode;
 

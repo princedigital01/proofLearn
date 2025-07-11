@@ -54,71 +54,84 @@ A platform to make school feel less like punishment and more like learning — t
 
 
 ### 1. Clone the Repo
+ - git clone https://github.com/your-team/prooflearn.git
+ - cd prooflearn/dapp
 
-git clone https://github.com/your-team/prooflearn.git
-cd prooflearn/dapp
+---
 
 ### 2. Install Dependencies
 
-npm install
-3. Create .env File
-env
+npm install.
+### 3. Create .env File.
+.env
 
 MONGODB_URI=mongodb+srv://<your-uri>
+
 NEXTAUTH_SECRET=your-secret
+
 NEXTAUTH_SECRET=your-secret
+
 GITHUB_SECRET=your-secret
+
 GOOGLE_SECRET=your-secret
+
 
 ### 4. Run Locally
 
 npm run dev
+
 Visit: http://localhost:3000
 
 🏗 Folder Overview
 
 dapp/
-├── app/               # Routes (Next.js App Router)
-│   ├── courses/       # Course pages, lessons, quizzes
-│   ├── certificate/   # Certificate views & verifications
-│   ├── educators/     # Educator tools
-│   ├── dashboard/     # User dashboard
-│   ├── staking/       # Token staking (planned)
-│   ├── goverrnance/   # Governance UI
-│   └── api/           # All backend endpoints
-├── components/        # UI components & layout
-├── models/            # MongoDB schemas (Course, Quiz, etc.)
-├── lib/               # DB connection & helper utils
-├── public/            # Static assets
-└── utils/             # Wallet utils & contract interaction
+|    folder/sub-folder |       content                                |
+|----------------------|----------------------------------------------|
+| ├── app/             |  # Routes (Next.js App Router)               |
+| │   ├── courses/     | # Course pages, lessons, quizzes             |
+| │   ├── certificate/ |  # Certificate views & verifications         |
+| │   ├── educators/   |  # Educator tools                            |
+| │   ├── dashboard/   |  # User dashboard                            |
+| │   ├── staking/     |  # Token staking (planned)                   |
+| │   ├── goverrnance/ |  # Governance UI                             |
+| │   └── api/         |  # All backend endpoints                     |
+| ├── components/      |  # UI components & layout                    |
+| ├── models/          |  # MongoDB schemas (Course, Quiz, etc.)      |
+| ├── lib/             |  # DB connection & helper utils              |
+| ├── public/          |  # Static assets                             |
+| └── utils/           |  # Wallet utils & contract interaction       |
 
 ### 5 🌐 Blockchain Modules (Planned)
 
--🎖 Credential NFT System
--Mints on course completion
--Verifiable on Cardano testnet
--Contains course, grade, wallet ID, timestamp
+- 🎖 Credential NFT System
+- Mints on course completion
+- Verifiable on Cardano testnet
+- Contains course, grade, wallet ID, timestamp
 
-🔗 Smart Contracts
+#### 🔗 Smart Contracts
 Written in Aiken
 
-Modules: Enrollment validator, Certificate NFT, Escrow logic
+#### Modules: Enrollment validator, Certificate NFT, Escrow logic
 
-🔐 Wallet Support
+#### 🔐 Wallet Support
 Nami, Eternl, Yoroi (via Mesh.js)
 
-NFT storage + payments
+#### NFT storage + payments
 
 
 ## 👥 Team
-Name	            Role
-Edward Igberaese	Fullstack 
-Kennedy 	        Blockchain Developer
+| Name	            |Role                 |
+|-------------------|---------------------|
+| Edward Igberaese  |Fullstack            |
+| Kennedy 	        |Blockchain Developer |
 
 
 ## 📬 Contact
-GitHub: github.com/princedigital01/
+### GitHub
+github.com/princedigital01/
 
-Email: iggberaeseedward2005@gmail.com
+### Email
+iggberaeseedward2005@gmail.com
 
-Cardano Hackathon Team: SOLUTION WEB
+### Cardano Hackathon Team
+SOLUTION WEB

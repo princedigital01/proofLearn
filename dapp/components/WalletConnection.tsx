@@ -28,14 +28,15 @@ export const WalletConnection = () => {
     if(wallets.length > 0) { 
     
      
-      try{
-    const wallet = await BrowserWallet.enable('lace')  
+    const wallet = await BrowserWallet.enable('lace')   
+     
+    const usedAddr = await wallet.getChangeAddress() 
+    setWalletAddress(usedAddr)
+     
+   
+     
+    const adaBalance = await wallet.getLovelace()  
 
-    const adaBalance = await wallet.getLovelace()
-    const used =  await wallet.getChangeAddress();
-  
-  
-    setWalletAddress(used)
     setBalance(prevBalance => ({
       ...prevBalance,
       ada: adaBalance,

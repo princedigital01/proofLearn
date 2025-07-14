@@ -29,9 +29,10 @@ export default function EditCoursePage() {
   const role = session.user?.role;
 
 
-  const { id } = useParams()
+  const { Id } = useParams()
+  const id =Id;
   const [title, setTitle] = useState("")
-  const [error, setError] = useState("")
+  const [error, setError] = useState("initial")
   const [description, setDescription] = useState("")
   const [category, setCategory] = useState("")
   const [price, setPrice] = useState<number>(0)
@@ -44,29 +45,38 @@ export default function EditCoursePage() {
   const [lessonEdit, setLessonEdit] = useState<number>(NaN);
 
 useEffect(() => {
-  if (!id || typeof id !== 'string') return;
+  
+  
 
   const fetchCourse = async () => {
+    
     try {
+      
       const res = await fetch(`/api/courses/${id}`);
+      
       if (!res.ok) throw new Error("Failed to fetch");
 
       const data = await res.json();
-      setTitle(data.title || "");
+      setError("")
+      setTitle(data.title || id);
       setDescription(data.description || "");
       setCategory(data.category || "");
       setPrice(data.price || 0);
       setLessons(data.lessons || []);
       setStatusS(data.status || "draft");
       setBtnText2(data.status === "published" ? "Unpublish" : "Publish");
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       setError("Failed to load course");
     } finally {
       setLoading(false);
     }
+    setLoading(false);
   };
 
   fetchCourse();
+  
 }, [id]);
 
   const handleUpdateCourse = async () => {
@@ -159,7 +169,6 @@ useEffect(() => {
       <Header title={`Edit Course`}>{""}</Header>
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-2xl font-bold mb-4">Edit Course</h1>
-
         {loading ? (
           <p>Loading... </p>
         ) : (

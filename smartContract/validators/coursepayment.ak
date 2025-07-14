@@ -4,7 +4,7 @@ use aiken/list
 use aiken/transaction.{ScriptContext, Spend, find_input, find_output,OutputReference}
 use cardano/address/credential.{VerificationKey}
 use cardano/assets.{Value, lovelace_of,quantity_of}
-
+ 
 // Course purchase validator
 type CourseDatum {
   course_id: ByteArray,

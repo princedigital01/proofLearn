@@ -161,7 +161,7 @@ useEffect(() => {
         <h1 className="text-2xl font-bold mb-4">Edit Course</h1>
 
         {loading ? (
-          <p>Loading...</p>
+          <p>Loading... </p>
         ) : (
           <>
             <div className="space-y-4">

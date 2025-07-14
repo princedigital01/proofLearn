@@ -124,18 +124,7 @@ These contracts will power the core blockchain features of the ProofLearn platfo
 
 ---
 
-##### 🧾 1. Enrollment Validator(planned)
-
-> 🔐 Ensures students are eligible before gaining course access.
-
-- Verifies the student has paid the required course fee (in ADA or LEARN token)
-- Validates the enrollment transaction on-chain
-- Triggers course access in the backend after on-chain success
-- Prevents double enrollments or replay attacks
-
----
-
-##### 🎖 2. Certificate NFT Validator(planned)
+##### 🎖 1. Certificate NFT Validator(planned)
 
 > 🎓 Mints tamper-proof, globally verifiable certificates.
 
@@ -150,8 +139,8 @@ These contracts will power the core blockchain features of the ProofLearn platfo
 
 ---
 
-##### 💰 3. Escrow Logic Contract(planned)
-
+##### 💰 2. Escrow Logic Contract(planned)
+ 
 > 🏦 Trustless payment between students and educators.
 
 - Holds course payment in escrow at the time of enrollment

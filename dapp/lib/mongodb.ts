@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const MONGODB_URL = process.env.MONGODB_URI as string
+const MONGODB_URL = process.env.MONGO_CONN_STR as string
 
 
 

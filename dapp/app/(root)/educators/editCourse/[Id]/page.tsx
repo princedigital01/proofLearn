@@ -29,8 +29,7 @@ export default function EditCoursePage() {
   const role = session.user?.role;
 
 
-  const { Id } = useParams()
-  const id =Id;
+  const { id } = useParams()
   const [title, setTitle] = useState("")
   const [error, setError] = useState("initial")
   const [description, setDescription] = useState("")
@@ -46,8 +45,6 @@ export default function EditCoursePage() {
 
 useEffect(() => {
   
-  
-
   const fetchCourse = async () => {
     
     try {
@@ -58,7 +55,7 @@ useEffect(() => {
 
       const data = await res.json();
       setError("")
-      setTitle(data.title || id);
+      setTitle(data.title || "");
       setDescription(data.description || "");
       setCategory(data.category || "");
       setPrice(data.price || 0);

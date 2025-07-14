@@ -27,7 +27,7 @@ export const WalletConnection = () => {
     //console.log(wallets);  
     if(wallets.length > 0) { 
     
-     
+     try{
     const wallet = await BrowserWallet.enable('lace')   
      
     const usedAddr = await wallet.getChangeAddress() 

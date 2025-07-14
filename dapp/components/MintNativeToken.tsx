@@ -33,7 +33,7 @@ const nativeToken : Mint = {
 } 
  
 interface Props {} 
- 
+  
  export const MintNativeToken: NextComponentType<NextPageContext, {}, Props> = ( 
     props: Props
  ) => {  

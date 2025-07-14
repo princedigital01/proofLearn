@@ -13,7 +13,7 @@ export const TokenBalance = () => {
         <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
           <TrendingUp className="h-3 w-3 mr-1" />
           +95
-        </Badge>
+        </Badge> 
       </div> 
       <div><MintNativeToken/></div>
     </div>

@@ -44,8 +44,8 @@ export default function EditCoursePage() {
   const [lessonEdit, setLessonEdit] = useState<number>(NaN);
 
 useEffect(() => {
-  setError("use effect")
-  if (!id) return;
+  setError("use effect"+id)
+  
 setError("id "+id)
   const fetchCourse = async () => {
     

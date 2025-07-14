@@ -70,6 +70,8 @@ const EnrolledCourses = () => {
             </CardContent>
           </Card>
         ))}
+
+        <Link href={"/courses"}><Button> Add a course</Button></Link>
       </div>
     </>
   )

@@ -24,25 +24,31 @@ export const WalletConnection = () => {
   const handleConnect = async () => {
     // In real implementation, this would integrate with Cardano wallets  
     const wallets = await BrowserWallet.getInstalledWallets(); 
-    console.log(wallets);  
+    //console.log(wallets);  
     if(wallets.length > 0) { 
     
      
-    const wallet = await BrowserWallet.enable('')  
-     
-   
-     
-    const adaBalance = await wallet.getLovelace()  
+      try{
+    const wallet = await BrowserWallet.enable('lace')  
 
+    const adaBalance = await wallet.getLovelace()
+    const used =  await wallet.getChangeAddress();
+  
+  
+    setWalletAddress(used)
     setBalance(prevBalance => ({
       ...prevBalance,
       ada: adaBalance,
     }));
-     
-    
+    setIsConnected(true);
+     console.log(adaBalance)
+  }catch(err){
+    console.log(err);
+    alert("error pls install lace wallet")
+  }
 } 
 else{ 
-  alert('Please Install a cardono wallet')
+  alert('Please Install lace wallet')
 }
     }
      

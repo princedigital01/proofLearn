@@ -45,19 +45,19 @@ export default function EditCoursePage() {
   const [lessonEdit, setLessonEdit] = useState<number>(NaN);
 
 useEffect(() => {
-  setError("use effect"+id)
+  
   
 
   const fetchCourse = async () => {
     
     try {
-      setError("id2 "+id)
+      
       const res = await fetch(`/api/courses/${id}`);
-      setError("id3 "+id)
+      
       if (!res.ok) throw new Error("Failed to fetch");
-setError("1234567"+res.ok)
+
       const data = await res.json();
-      setError("id: "+id)
+      setError("")
       setTitle(data.title || id);
       setDescription(data.description || "");
       setCategory(data.category || "");
@@ -166,10 +166,9 @@ setError("1234567"+res.ok)
 
   return (
     <>
-      <Header title={`Edit Course`}>{error}</Header>
+      <Header title={`Edit Course`}>{""}</Header>
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-2xl font-bold mb-4">Edit Course</h1>
-<p>{error}</p>
         {loading ? (
           <p>Loading...</p>
         ) : (

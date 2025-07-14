@@ -150,7 +150,7 @@ These contracts will power the core blockchain features of the ProofLearn platfo
 
 ---
 
-### 💰 3. Escrow Logic Contract(planned)
+##### 💰 3. Escrow Logic Contract(planned)
 
 > 🏦 Trustless payment between students and educators.
 

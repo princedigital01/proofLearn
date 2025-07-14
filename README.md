@@ -65,15 +65,21 @@ npm install.
 ### 3. Create .env File.
 .env
 
-MONGODB_URI=mongodb+srv://<your-uri>
+MONGO_CONN_STR=mongodb+srv://igberaeseedward2005:tfXvG6d2SKVR37mr@cluster.cqpg61y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster
 
-NEXTAUTH_SECRET=your-secret
+GOOGLE_CLIENT_ID=887047876662-ank6uvcjb3jgh97bbp5uuqf4b4g416qa.apps.googleusercontent.com
 
-NEXTAUTH_SECRET=your-secret
+GOOGLE_CLIENT_SECRET=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
 
-GITHUB_SECRET=your-secret
+GITHUB_CLIENT_ID=Ov23liSmAaVzBQNGbDEy
 
-GOOGLE_SECRET=your-secret
+GITHUB_CLIENT_SECRET=1dceab39d95e2a57d9320e586f2eb6f63f3452a1
+
+NEXTAUTH_URL=http://localhost:3000
+
+NEXTAUTH_SECRET=oW6uZrSk8F5sUECmQlfqjCcbjD3PfsPv3LZekgphZ4
+
+BCRYPT_SALT=10
 
 
 ### 4. Run Locally

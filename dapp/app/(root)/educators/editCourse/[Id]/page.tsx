@@ -59,7 +59,9 @@ useEffect(() => {
       setLessons(data.lessons || []);
       setStatusS(data.status || "draft");
       setBtnText2(data.status === "published" ? "Unpublish" : "Publish");
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       setError("Failed to load course");
     } finally {
       setLoading(false);

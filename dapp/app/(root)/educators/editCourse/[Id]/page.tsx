@@ -43,29 +43,31 @@ export default function EditCoursePage() {
   const [btnText2, setBtnText2] = useState("")
   const [lessonEdit, setLessonEdit] = useState<number>(NaN);
 
-  useEffect(() => {
-    const fetchCourse = async () => {
-      try {
-        const res = await fetch(`/api/courses/${id}`)
-        const data = await res.json()
-        setTitle(data.title)
-        setDescription(data.description)
-        setCategory(data.category)
-        setPrice(data.price)
-        setLessons(data.lessons || [])
-        console.log(data.lessons)
-        setStatusS(data.status || "draft")
-        setLoading(false)
-        setBtnText2(statusS === "published" ? "Unpublish" : "Publish")
-      } catch (err) {
-        setError("Failed to load course")
-      } finally {
-        setLoading(false)
-      }
-    }
+useEffect(() => {
+  if (!id || typeof id !== 'string') return;
 
-    if (id) fetchCourse()
-  }, [id])
+  const fetchCourse = async () => {
+    try {
+      const res = await fetch(`/api/courses/${id}`);
+      if (!res.ok) throw new Error("Failed to fetch");
+
+      const data = await res.json();
+      setTitle(data.title || "");
+      setDescription(data.description || "");
+      setCategory(data.category || "");
+      setPrice(data.price || 0);
+      setLessons(data.lessons || []);
+      setStatusS(data.status || "draft");
+      setBtnText2(data.status === "published" ? "Unpublish" : "Publish");
+    } catch (err) {
+      setError("Failed to load course");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchCourse();
+}, [id]);
 
   const handleUpdateCourse = async () => {
     setBtnText1("loading...")

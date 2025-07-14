@@ -38,7 +38,7 @@ export default function EditCoursePage() {
   const [statusS, setStatusS] = useState<"draft" | "published">("draft")
   const [lessons, setLessons] = useState<any[]>([])
   const [showModal, setShowModal] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [btnText1, setBtnText1] = useState("save changes")
   const [btnText2, setBtnText2] = useState("")
   const [lessonEdit, setLessonEdit] = useState<number>(NaN);
@@ -47,13 +47,13 @@ useEffect(() => {
   if (!id || typeof id !== 'string') return;
 
   const fetchCourse = async () => {
-    setLoading(true);
+    
     try {
       const res = await fetch(`/api/courses/${id}`);
       if (!res.ok) throw new Error("Failed to fetch");
 
       const data = await res.json();
-      setTitle(data.title || "");
+      setTitle(data.title || id);
       setDescription(data.description || "");
       setCategory(data.category || "");
       setPrice(data.price || 0);
@@ -67,6 +67,7 @@ useEffect(() => {
     } finally {
       setLoading(false);
     }
+    setLoading(false);
   };
 
   fetchCourse();

@@ -76,10 +76,9 @@ else{
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-2">
+        <Button variant="outline" className="flex items-center gap-2 ">
           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-          <span className="hidden md:inline">{walletAddress}</span>
-          <span className="md:hidden">Wallet</span>
+          <span className="">Wallet</span>
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
@@ -92,7 +91,7 @@ else{
             </Badge>
           </div>
           <div className="flex items-center gap-2 mt-1">
-            <span className="text-sm text-gray-600">{walletAddress}</span>
+            <span className="text-sm text-gray-600 w-[80%] overflow-hidden">{walletAddress}</span>
             <Button size="sm" variant="ghost" className="h-6 w-6 p-0">
               <Copy className="h-3 w-3" />
             </Button>

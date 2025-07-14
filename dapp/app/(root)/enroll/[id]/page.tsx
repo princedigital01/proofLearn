@@ -93,7 +93,7 @@ export default function EnrollPage() {
       </Header>
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-3xl font-bold mb-4">{course.title}</h1>
-        <p className="text-gray-700 mb-2">{course.description}</p>
+        <pre className="whitespace-pre-wrap">{course.description}</pre>
         <p className="text-sm text-gray-500 mb-6">Category: {course.category}</p>
         <p className="text-lg font-semibold mb-6">Price: ${course.price || 0}</p>
 

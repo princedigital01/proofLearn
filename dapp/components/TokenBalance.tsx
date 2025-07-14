@@ -15,7 +15,7 @@ export const TokenBalance = () => {
           +95
         </Badge> 
       </div> 
-      <div><MintNativeToken/></div>
+      {/* <div><MintNativeToken/></div> */}
     </div>
   );
 };

@@ -17,7 +17,7 @@ const Header = ({children, title }) => {
                 <div className="flex items-center space-x-2">
                     <BookOpen className="h-8 w-8 text-blue-600" />
                     <span className="text-2xl font-bold text-gray-900">{title}</span>
-                </div>
+                </div> 
                 <nav className="flex gap-6">
                     {navLinks.map((link) => (
                         <Link

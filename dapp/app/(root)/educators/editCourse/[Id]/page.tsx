@@ -31,7 +31,7 @@ export default function EditCoursePage() {
 
   const { id } = useParams()
   const [title, setTitle] = useState("")
-  const [error, setError] = useState("")
+  const [error, setError] = useState("initial")
   const [description, setDescription] = useState("")
   const [category, setCategory] = useState("")
   const [price, setPrice] = useState<number>(0)
@@ -44,14 +44,17 @@ export default function EditCoursePage() {
   const [lessonEdit, setLessonEdit] = useState<number>(NaN);
 
 useEffect(() => {
+  setError("use effect")
   if (!id || typeof id !== 'string') return;
-
+setError("id "+id)
   const fetchCourse = async () => {
     
     try {
+      setError("id2 "+id)
       const res = await fetch(`/api/courses/${id}`);
+      setError("id3 "+id)
       if (!res.ok) throw new Error("Failed to fetch");
-setError("1234567")
+setError("1234567"+res.ok)
       const data = await res.json();
       setError("id: "+id)
       setTitle(data.title || id);
@@ -162,7 +165,7 @@ setError("1234567")
 
   return (
     <>
-      <Header title={`Edit Course`}>{""}</Header>
+      <Header title={`Edit Course`}>{error}</Header>
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-2xl font-bold mb-4">Edit Course</h1>
 <p>{error}</p>

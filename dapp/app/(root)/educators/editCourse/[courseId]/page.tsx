@@ -29,7 +29,7 @@ export default function EditCoursePage() {
   const role = session.user?.role;
 
 
-  const { id } = useParams()
+  const { courseId } = useParams()
   const [title, setTitle] = useState("")
   const [error, setError] = useState("initial")
   const [description, setDescription] = useState("")
@@ -49,7 +49,7 @@ useEffect(() => {
     
     try {
       
-      const res = await fetch(`/api/courses/${id}`);
+      const res = await fetch(`/api/courses/${courseId}`);
       
       if (!res.ok) throw new Error("Failed to fetch");
 
@@ -74,12 +74,12 @@ useEffect(() => {
 
   fetchCourse();
   
-}, [id]);
+}, [courseId]);
 
   const handleUpdateCourse = async () => {
     setBtnText1("loading...")
     try {
-      const res = await fetch(`/api/courses/${id}`, {
+      const res = await fetch(`/api/courses/${courseId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -107,7 +107,7 @@ useEffect(() => {
     setBtnText2("loading..")
     const newStatus = statusS === "draft" ? "published" : "draft"
     try {
-      const res = await fetch(`/api/courses/${id}`, {
+      const res = await fetch(`/api/courses/${courseId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),

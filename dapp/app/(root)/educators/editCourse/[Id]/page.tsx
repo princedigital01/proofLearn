@@ -45,7 +45,7 @@ export default function EditCoursePage() {
 
 useEffect(() => {
   setError("use effect")
-  if (!id || typeof id !== 'string') return;
+  if (!id) return;
 setError("id "+id)
   const fetchCourse = async () => {
     

@@ -29,7 +29,8 @@ export default function EditCoursePage() {
   const role = session.user?.role;
 
 
-  const { id } = useParams()
+  const { Id } = useParams()
+  const id =Id;
   const [title, setTitle] = useState("")
   const [error, setError] = useState("initial")
   const [description, setDescription] = useState("")
@@ -46,7 +47,7 @@ export default function EditCoursePage() {
 useEffect(() => {
   setError("use effect"+id)
   
-setError("id "+id)
+
   const fetchCourse = async () => {
     
     try {

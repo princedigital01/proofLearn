@@ -1,0 +1,16 @@
+# resave as (.env)
+
+ADMIN_EMAIL=igberaeseedward2005@gmail.com
+MONGO_CONN_STR=mongodb+srv://igberaeseedward2005:tfXvG6d2SKVR37mr@cluster.cqpg61y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster
+
+GOOGLE_CLIENT_ID=887047876662-ank6uvcjb3jgh97bbp5uuqf4b4g416qa.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+
+GITHUB_CLIENT_ID=Ov23liSmAaVzBQNGbDEy
+GITHUB_CLIENT_SECRET=1dceab39d95e2a57d9320e586f2eb6f63f3452a1
+
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=oW6uZrSk8F5sUECmQlfqjCcbjD3PfsPv3LZekgphZ4
+
+
+BCRYPT_SALT=10

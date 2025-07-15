@@ -131,7 +131,7 @@ These contracts will power the core blockchain features of the ProofLearn platfo
 - Mints a unique **NFT credential** after a student completes a course
 - Uses the **CIP-68 standard** for updatable NFT metadata
 - Certificate metadata includes:
-  - Course title
+  - Course title 
   - Completion score
   - Student wallet address
   - Timestamp

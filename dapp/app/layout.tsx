@@ -20,7 +20,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata: Metadata = {
+  verification: {
+    google: "BpXryvJvMIJCXjZ1gjydQElXHv2wnpQrG0ELMJsYvzA"
+  },
   title: 'ProofLearn | Decentralized Learning with Verifiable Credentials',
   description:
     'ProofLearn is a blockchain-powered e-learning platform where students own their certificates and educators are rewarded fairly. Learn, earn, and prove your skills globally.',
@@ -81,6 +85,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <meta name="google-site-verification" content="BpXryvJvMIJCXjZ1gjydQElXHv2wnpQrG0ELMJsYvzA" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -89,6 +96,7 @@ export default function RootLayout({
           <TooltipProvider>
             <Toaster />
             <Sonner />
+            
             <Suspense fallback={<Loading />}>
               {children}
             </Suspense>

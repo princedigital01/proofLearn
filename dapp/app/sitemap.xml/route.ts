@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   const courses = await Course.find().select('_id updatedAt').lean()
   const staticRoutes = navLinks.map((route) => `
     <url>
-      <loc>${baseUrl}${route}</loc>
+      <loc>${baseUrl}${route.href}</loc>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>`).join('')
